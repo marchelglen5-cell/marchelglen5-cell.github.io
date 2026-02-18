@@ -12,8 +12,11 @@ body {
     font-family: Arial, sans-serif;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+
+    justify-content: flex-start; /* pindah ke kiri */
+    align-items: center;         /* tengah vertikal */
+
+    padding-left: 80px;          /* jarak dari tepi kiri */
 
     background-image: url("https://images.wallpaperscraft.com/image/single/library_books_shelves_192916_1600x900.jpg");
     background-size: cover;
@@ -22,7 +25,7 @@ body {
 
 /* Card utama */
 .card {
-    background: white;
+    background: rgba(255,255,255,0.95); /* sedikit transparan */
     padding: 40px;
     border-radius: 15px;
     text-align: center;
