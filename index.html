@@ -20,7 +20,7 @@ body {
     background-position: center;
 }
 
-/* ===== NAVBAR POJOK KANAN ATAS ===== */
+/* ===== NAVBAR ===== */
 .navbar {
     position: absolute;
     top: 0;
@@ -40,15 +40,10 @@ body {
     background: rgba(255,255,255,0.9);
     padding: 8px 14px;
     border-radius: 8px;
-    transition: 0.3s;
+    cursor: pointer;
 }
 
-.menu a:hover {
-    background: #2d7df6;
-    color: white;
-}
-
-/* ===== Card Kiri ===== */
+/* ===== CARD KIRI ===== */
 .card {
     background: rgba(255,255,255,0.95);
     padding: 40px;
@@ -75,7 +70,7 @@ body {
 .yt { background: #FF0000; }
 .contact { background: #2d7df6; }
 
-/* ===== Portfolio Kanan ===== */
+/* ===== PORTFOLIO ===== */
 .portfolio {
     background: rgba(255,255,255,0.95);
     padding: 30px;
@@ -84,40 +79,64 @@ body {
     width: 380px;
 }
 
-.portfolio img {
-    width: 100%;
-    border-radius: 12px;
-    margin-bottom: 15px;
+/* ===== POPUP LOGIN ===== */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
-.skill {
+.popup-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 320px;
+    text-align: center;
+}
+
+.popup-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+}
+
+.popup-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
     background: #2d7df6;
     color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: inline-block;
-    margin: 4px;
-    font-size: 13px;
+    border: none;
+    border-radius: 6px;
+}
+
+.link {
+    margin-top: 10px;
+    display: block;
+    color: #2d7df6;
+    cursor: pointer;
+    font-size: 14px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== MENU KANAN ATAS ===== -->
+<!-- ===== MENU ===== -->
 <header class="navbar">
     <nav class="menu">
         <a href="#">Beranda</a>
-        <a href="#">Login</a>
+        <a onclick="openLogin()">Login</a>
         <a href="#">Anggota</a>
     </nav>
 </header>
 
 <!-- ===== KIRI ===== -->
 <div class="card">
-
     <h2>Tugas Pengembangan Web</h2>
-
     <p>Halo perkenalkan nama saya Glen Marchel</p>
     <p>Silahkan cek media sosial saya</p>
 
@@ -125,26 +144,60 @@ body {
     <a href="#" class="btn ig">Instagram</a>
     <a href="#" class="btn yt">YouTube</a>
     <a href="#" class="btn contact">Contact Us</a>
-
 </div>
 
-<!-- ===== KANAN (PORTFOLIO) ===== -->
+<!-- ===== KANAN ===== -->
 <div class="portfolio">
-
     <h2>Portfolio Saya</h2>
-
-    <img src="https://picsum.photos/400/250" alt="Project">
-
-    <p>
-        Nama Saya Glen Marchel <br>
-        Ini adalah lembar Portofolio
-    </p>
-
+    <img src="https://picsum.photos/400/250">
+    <p>Nama Saya Glen Marchel<br>Ini adalah lembar Portofolio</p>
     <h3>Keahlian</h3>
-
     <span class="skill">HTML</span>
-
 </div>
+
+<!-- ===== POPUP LOGIN ===== -->
+<div class="popup" id="loginPopup">
+    <div class="popup-box">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <button>Masuk</button>
+
+        <span class="link" onclick="openRegister()">Belum punya akun? Daftar</span>
+        <span class="link" onclick="closePopup()">Kembali</span>
+    </div>
+</div>
+
+<!-- ===== POPUP REGISTER ===== -->
+<div class="popup" id="registerPopup">
+    <div class="popup-box">
+        <h2>Daftar Akun</h2>
+        <input type="text" placeholder="Username">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button>Daftar</button>
+
+        <span class="link" onclick="openLogin()">Sudah punya akun? Login</span>
+        <span class="link" onclick="closePopup()">Kembali</span>
+    </div>
+</div>
+
+<script>
+function openLogin() {
+    document.getElementById("loginPopup").style.display = "flex";
+    document.getElementById("registerPopup").style.display = "none";
+}
+
+function openRegister() {
+    document.getElementById("loginPopup").style.display = "none";
+    document.getElementById("registerPopup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("loginPopup").style.display = "none";
+    document.getElementById("registerPopup").style.display = "none";
+}
+</script>
 
 </body>
 </html>
