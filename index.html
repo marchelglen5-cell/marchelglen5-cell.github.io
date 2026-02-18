@@ -3,26 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Beranda dari Glen Marchel</title>
+<title>Beranda Glen Marchel</title>
 
 <style>
 body {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     height: 100vh;
     display: flex;
-
-    justify-content: flex-start;
     align-items: center;
-    padding-left: 80px;
+    padding-left: 60px;
+    gap: 40px;
 
     background-image: url("https://images.wallpaperscraft.com/image/single/library_books_shelves_192916_1600x900.jpg");
     background-size: cover;
     background-position: center;
 }
 
-/* Card utama */
+/* ===== Card Kiri ===== */
 .card {
     background: rgba(255,255,255,0.95);
     padding: 40px;
@@ -32,12 +30,11 @@ body {
     width: 320px;
 }
 
-/* ===== Tombol sosial (DITENGAHKAN) ===== */
 .btn {
     display: block;
-    width: 85%;          /* tidak full agar bisa center */
+    width: 85%;
     padding: 12px;
-    margin: 10px auto;   /* auto = tengah */
+    margin: 10px auto;
     border-radius: 8px;
     text-decoration: none;
     color: white;
@@ -50,46 +47,36 @@ body {
 .yt { background: #FF0000; }
 .contact { background: #2d7df6; }
 
-/* ===== Contact Form ===== */
-.contact-form {
-    display: none;
-    margin-top: 20px;
-    text-align: left;
+/* ===== Portfolio Kanan ===== */
+.portfolio {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 380px;
 }
 
-.contact-form input,
-.contact-form textarea {
+.portfolio img {
     width: 100%;
-    padding: 10px;
-    margin: 6px 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    border-radius: 12px;
+    margin-bottom: 15px;
 }
 
-.contact-form button {
-    width: 100%;
-    padding: 12px;
+.skill {
     background: #2d7df6;
     color: white;
-    border: none;
-    border-radius: 8px;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.back-btn {
-    display: block;
-    text-align: center;
-    margin-top: 8px;
-    color: #555;
-    cursor: pointer;
-    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 4px;
+    font-size: 13px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- ===== KIRI ===== -->
 <div class="card">
 
     <h2>Tugas Pengembangan Web</h2>
@@ -100,34 +87,27 @@ body {
     <a href="#" class="btn fb">Facebook</a>
     <a href="#" class="btn ig">Instagram</a>
     <a href="#" class="btn yt">YouTube</a>
-
-    <!-- Tombol Contact -->
-    <a class="btn contact" onclick="showContact()">Contact Us</a>
-
-    <!-- Form Contact -->
-    <div class="contact-form" id="contactForm">
-        <h3>Contact Us</h3>
-
-        <input type="text" placeholder="Glen Marchel" required>
-        <input type="email" placeholder="marchelglen5@gmail.com" required>
-        <textarea rows="4" placeholder="Tolong hubungi jika ada kendala" required></textarea>
-
-        <button>Kirim Pesan</button>
-
-        <span class="back-btn" onclick="hideContact()">← Kembali</span>
-    </div>
+    <a href="#" class="btn contact">Contact Us</a>
 
 </div>
 
-<script>
-function showContact() {
-    document.getElementById("contactForm").style.display = "block";
-}
+<!-- ===== KANAN (PORTFOLIO) ===== -->
+<div class="portfolio">
 
-function hideContact() {
-    document.getElementById("contactForm").style.display = "none";
-}
-</script>
+    <h2>Portfolio Saya</h2>
+
+    <img src="https://picsum.photos/400/250" alt="Project">
+
+    <p>
+        Nama Saya Glen Marchel
+        Ini adalah lembar Portofolio
+    </p>
+
+    <h3>Keahlian</h3>
+
+    <span class="skill">HTML</span>
+
+</div>
 
 </body>
 </html>
