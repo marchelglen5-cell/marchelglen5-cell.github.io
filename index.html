@@ -20,6 +20,34 @@ body {
     background-position: center;
 }
 
+/* ===== NAVBAR POJOK KANAN ATAS ===== */
+.navbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 20px 40px;
+}
+
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background: rgba(255,255,255,0.9);
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.menu a:hover {
+    background: #2d7df6;
+    color: white;
+}
+
 /* ===== Card Kiri ===== */
 .card {
     background: rgba(255,255,255,0.95);
@@ -76,6 +104,15 @@ body {
 
 <body>
 
+<!-- ===== MENU KANAN ATAS ===== -->
+<header class="navbar">
+    <nav class="menu">
+        <a href="#">Beranda</a>
+        <a href="#">Login</a>
+        <a href="#">Anggota</a>
+    </nav>
+</header>
+
 <!-- ===== KIRI ===== -->
 <div class="card">
 
@@ -99,7 +136,7 @@ body {
     <img src="https://picsum.photos/400/250" alt="Project">
 
     <p>
-        Nama Saya Glen Marchel
+        Nama Saya Glen Marchel <br>
         Ini adalah lembar Portofolio
     </p>
 
