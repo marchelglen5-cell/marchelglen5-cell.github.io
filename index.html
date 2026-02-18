@@ -13,10 +13,9 @@ body {
     height: 100vh;
     display: flex;
 
-    justify-content: flex-start; /* pindah ke kiri */
-    align-items: center;         /* tengah vertikal */
-
-    padding-left: 80px;          /* jarak dari tepi kiri */
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 80px;
 
     background-image: url("https://images.wallpaperscraft.com/image/single/library_books_shelves_192916_1600x900.jpg");
     background-size: cover;
@@ -25,7 +24,7 @@ body {
 
 /* Card utama */
 .card {
-    background: rgba(255,255,255,0.95); /* sedikit transparan */
+    background: rgba(255,255,255,0.95);
     padding: 40px;
     border-radius: 15px;
     text-align: center;
@@ -33,16 +32,17 @@ body {
     width: 320px;
 }
 
-/* Tombol sosial */
+/* ===== Tombol sosial (DITENGAHKAN) ===== */
 .btn {
     display: block;
-    width: 100%;
+    width: 85%;          /* tidak full agar bisa center */
     padding: 12px;
-    margin: 8px 0;
+    margin: 10px auto;   /* auto = tengah */
     border-radius: 8px;
     text-decoration: none;
     color: white;
     font-weight: bold;
+    text-align: center;
 }
 
 .fb { background: #1877F2; }
