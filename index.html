@@ -43,7 +43,7 @@ body {
     cursor: pointer;
 }
 
-/* ===== CARD KIRI ===== */
+/* ===== CARD ===== */
 .card {
     background: rgba(255,255,255,0.95);
     padding: 40px;
@@ -52,23 +52,6 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     width: 320px;
 }
-
-.btn {
-    display: block;
-    width: 85%;
-    padding: 12px;
-    margin: 10px auto;
-    border-radius: 8px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-}
-
-.fb { background: #1877F2; }
-.ig { background: #E1306C; }
-.yt { background: #FF0000; }
-.contact { background: #2d7df6; }
 
 /* ===== PORTFOLIO ===== */
 .portfolio {
@@ -79,7 +62,7 @@ body {
     width: 380px;
 }
 
-/* ===== POPUP LOGIN ===== */
+/* ===== POPUP ===== */
 .popup {
     position: fixed;
     inset: 0;
@@ -96,30 +79,6 @@ body {
     width: 320px;
     text-align: center;
 }
-
-.popup-box input {
-    width: 100%;
-    padding: 10px;
-    margin: 6px 0;
-}
-
-.popup-box button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background: #2d7df6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-}
-
-.link {
-    margin-top: 10px;
-    display: block;
-    color: #2d7df6;
-    cursor: pointer;
-    font-size: 14px;
-}
 </style>
 </head>
 
@@ -130,7 +89,7 @@ body {
     <nav class="menu">
         <a href="#">Beranda</a>
         <a onclick="openLogin()">Login</a>
-        <a href="#">Anggota</a>
+        <a href="anggota.html">Anggota</a> <!-- 🔥 menuju halaman baru -->
     </nav>
 </header>
 
@@ -138,12 +97,6 @@ body {
 <div class="card">
     <h2>Tugas Pengembangan Web</h2>
     <p>Halo perkenalkan nama saya Glen Marchel</p>
-    <p>Silahkan cek media sosial saya</p>
-
-    <a href="#" class="btn fb">Facebook</a>
-    <a href="#" class="btn ig">Instagram</a>
-    <a href="#" class="btn yt">YouTube</a>
-    <a href="#" class="btn contact">Contact Us</a>
 </div>
 
 <!-- ===== KANAN ===== -->
@@ -151,8 +104,6 @@ body {
     <h2>Portfolio Saya</h2>
     <img src="https://picsum.photos/400/250">
     <p>Nama Saya Glen Marchel<br>Ini adalah lembar Portofolio</p>
-    <h3>Keahlian</h3>
-    <span class="skill">HTML</span>
 </div>
 
 <!-- ===== POPUP LOGIN ===== -->
@@ -162,40 +113,17 @@ body {
         <input type="text" placeholder="Username">
         <input type="password" placeholder="Password">
         <button>Masuk</button>
-
-        <span class="link" onclick="openRegister()">Belum punya akun? Daftar</span>
-        <span class="link" onclick="closePopup()">Kembali</span>
-    </div>
-</div>
-
-<!-- ===== POPUP REGISTER ===== -->
-<div class="popup" id="registerPopup">
-    <div class="popup-box">
-        <h2>Daftar Akun</h2>
-        <input type="text" placeholder="Username">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button>Daftar</button>
-
-        <span class="link" onclick="openLogin()">Sudah punya akun? Login</span>
-        <span class="link" onclick="closePopup()">Kembali</span>
+        <span onclick="closePopup()">Kembali</span>
     </div>
 </div>
 
 <script>
 function openLogin() {
     document.getElementById("loginPopup").style.display = "flex";
-    document.getElementById("registerPopup").style.display = "none";
-}
-
-function openRegister() {
-    document.getElementById("loginPopup").style.display = "none";
-    document.getElementById("registerPopup").style.display = "flex";
 }
 
 function closePopup() {
     document.getElementById("loginPopup").style.display = "none";
-    document.getElementById("registerPopup").style.display = "none";
 }
 </script>
 
