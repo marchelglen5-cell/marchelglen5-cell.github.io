@@ -17,6 +17,22 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Fix dropdown */
+.navbar { position: relative; z-index: 9999; }
+
+.dropdown-menu {
+  z-index: 9999;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.dropdown-item:hover {
+  background: #1abc9c;
+  color: white;
+}
+
+/* Glass UI */
 .container {
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(15px);
@@ -26,6 +42,7 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
+/* Card */
 .card {
   border: none;
   border-radius: 20px;
@@ -39,7 +56,7 @@ body {
 }
 
 .card img {
-  height: 260px;
+  height: 200px;
   object-fit: cover;
 }
 
@@ -62,11 +79,9 @@ h3 {
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg shadow" 
-     style="background: linear-gradient(90deg, #141e30, #243b55);">
+<nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
 
-    <!-- Logo -->
     <a class="navbar-brand d-flex align-items-center text-white" href="#">
       <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png"
            width="40"
@@ -78,7 +93,6 @@ h3 {
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Menu -->
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto">
 
@@ -90,7 +104,6 @@ h3 {
           <a class="nav-link text-white" href="#koleksi">Daftar Koleksi</a>
         </li>
 
-        <!-- DROPDOWN -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
             Kategori Buku
@@ -107,7 +120,7 @@ h3 {
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-warning fw-bold" href="#login">Login</a>
+          <a class="nav-link text-warning fw-bold" href="#">Login</a>
         </li>
 
       </ul>
@@ -125,7 +138,6 @@ h3 {
   <h3>Buku Populer</h3>
 
   <div class="row" id="bookList">
-
     <div class="col-md-3 book" data-kategori="pemrograman">
       <div class="card">
         <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg">
@@ -165,72 +177,62 @@ h3 {
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- Event -->
+<!-- EVENT (UPDATED) -->
 <div class="container mt-5" id="event">
   <h3>Event yang Sedang Berlangsung</h3>
-  <div class="card p-4 text-center">
-    <h5>📚 Festival Literasi 2026</h5>
-    <p>Diskusi buku, workshop menulis, dan pameran perpustakaan digital.</p>
-    <button class="btn btn-warning">Ikuti Event</button>
-  </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="detailModal">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content text-dark">
-      <div class="modal-body text-center">
-        <img id="modalImg" class="img-fluid mb-3" style="height:250px;">
-        <h4 id="modalTitle"></h4>
-        <p id="modalAuthor"></p>
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" class="img-fluid rounded mb-3">
+        <h5>Festival Literasi Nasional 2026</h5>
+        <p>Event literasi nasional untuk meningkatkan minat baca masyarakat Indonesia.</p>
+        <a href="https://sinpo.id/detail/109812/kemenkraf-ajak-semua-pegiat-gandengan-di-festival-literasi-nasional-2026" target="_blank" class="btn btn-warning">Lihat Detail</a>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
+        <h5>Festival Literasi Perpusnas</h5>
+        <p>Kegiatan resmi dari Perpustakaan Nasional untuk mendukung literasi.</p>
+        <a href="https://www.perpusnas.go.id" target="_blank" class="btn btn-warning">Lihat Detail</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
+        <h5>Ubud Writers & Readers Festival</h5>
+        <p>Festival literasi internasional terbesar di Asia Tenggara.</p>
+        <a href="https://www.ubudwritersfestival.com/" target="_blank" class="btn btn-warning">Lihat Detail</a>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-// Search realtime
+// Search
 document.getElementById('search').addEventListener('keyup', function(){
   let input = this.value.toLowerCase();
   let books = document.querySelectorAll('.book');
-
   books.forEach(b => {
-    let title = b.innerText.toLowerCase();
-    b.style.display = title.includes(input) ? 'block' : 'none';
+    b.style.display = b.innerText.toLowerCase().includes(input) ? 'block' : 'none';
   });
 });
 
-// Filter kategori dari dropdown
+// Filter kategori
 function filterKategori(kategori){
   let books = document.querySelectorAll('.book');
-
   books.forEach(b => {
-    if(kategori === 'all' || b.dataset.kategori === kategori){
-      b.style.display = 'block';
-    } else {
-      b.style.display = 'none';
-    }
+    b.style.display = (kategori === 'all' || b.dataset.kategori === kategori) ? 'block' : 'none';
   });
 }
-
-// Klik buku → modal
-document.querySelectorAll('.book').forEach(book => {
-  book.onclick = function(){
-    let img = this.querySelector('img').src;
-    let title = this.querySelector('h5').innerText;
-    let author = this.querySelector('p').innerText;
-
-    document.getElementById('modalImg').src = img;
-    document.getElementById('modalTitle').innerText = title;
-    document.getElementById('modalAuthor').innerText = author;
-
-    new bootstrap.Modal(document.getElementById('detailModal')).show();
-  }
-});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
