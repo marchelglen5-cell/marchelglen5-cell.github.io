@@ -17,7 +17,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Glass Effect */
 .container {
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(15px);
@@ -27,7 +26,6 @@ body {
   box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
-/* Card */
 .card {
   border: none;
   border-radius: 20px;
@@ -45,7 +43,6 @@ body {
   object-fit: cover;
 }
 
-/* Animasi */
 .book {
   animation: fadeIn 0.8s ease;
 }
@@ -68,14 +65,53 @@ h3 {
 <nav class="navbar navbar-expand-lg shadow" 
      style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
+
+    <!-- Logo -->
     <a class="navbar-brand d-flex align-items-center text-white" href="#">
       <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png"
            width="40"
            class="me-2 rounded-circle bg-white p-1">
-      <span style="font-weight:bold; font-size:20px;">
-        Jejak Pustaka
-      </span>
+      <span style="font-weight:bold;">Jejak Pustaka</span>
     </a>
+
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menu -->
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Beranda</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#koleksi">Daftar Koleksi</a>
+        </li>
+
+        <!-- DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
+            Kategori Buku
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="filterKategori('all')">Semua</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
+            <li><a class="dropdown-item" href="#" onclick="filterKategori('database')">Database</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#event">Event</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-warning fw-bold" href="#login">Login</a>
+        </li>
+
+      </ul>
+    </div>
   </div>
 </nav>
 
@@ -85,12 +121,12 @@ h3 {
 </div>
 
 <!-- Koleksi -->
-<div class="container mt-5">
+<div class="container mt-5" id="koleksi">
   <h3>Buku Populer</h3>
 
   <div class="row" id="bookList">
 
-    <div class="col-md-3 book">
+    <div class="col-md-3 book" data-kategori="pemrograman">
       <div class="card">
         <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg">
         <div class="card-body">
@@ -100,7 +136,7 @@ h3 {
       </div>
     </div>
 
-    <div class="col-md-3 book">
+    <div class="col-md-3 book" data-kategori="database">
       <div class="card">
         <img src="https://covers.openlibrary.org/b/id/240726-L.jpg">
         <div class="card-body">
@@ -110,7 +146,7 @@ h3 {
       </div>
     </div>
 
-    <div class="col-md-3 book">
+    <div class="col-md-3 book" data-kategori="pemrograman">
       <div class="card">
         <img src="https://covers.openlibrary.org/b/id/8101356-L.jpg">
         <div class="card-body">
@@ -120,7 +156,7 @@ h3 {
       </div>
     </div>
 
-    <div class="col-md-3 book">
+    <div class="col-md-3 book" data-kategori="pemrograman">
       <div class="card">
         <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg">
         <div class="card-body">
@@ -133,20 +169,13 @@ h3 {
   </div>
 </div>
 
-<!-- Tambah Buku -->
-<div class="container mt-5">
-  <h3>Tambah Buku</h3>
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card p-3">
-        <form onsubmit="tambahBuku(event)">
-          <input type="text" id="judul" class="form-control mb-2" placeholder="Judul Buku" required>
-          <input type="text" id="penulis" class="form-control mb-2" placeholder="Penulis" required>
-          <input type="text" id="cover" class="form-control mb-2" placeholder="URL Cover Buku" required>
-          <button class="btn btn-success w-100">Tambah Buku</button>
-        </form>
-      </div>
-    </div>
+<!-- Event -->
+<div class="container mt-5" id="event">
+  <h3>Event yang Sedang Berlangsung</h3>
+  <div class="card p-4 text-center">
+    <h5>📚 Festival Literasi 2026</h5>
+    <p>Diskusi buku, workshop menulis, dan pameran perpustakaan digital.</p>
+    <button class="btn btn-warning">Ikuti Event</button>
   </div>
 </div>
 
@@ -175,49 +204,33 @@ document.getElementById('search').addEventListener('keyup', function(){
   });
 });
 
-// Tambah buku
-function tambahBuku(e){
-  e.preventDefault();
+// Filter kategori dari dropdown
+function filterKategori(kategori){
+  let books = document.querySelectorAll('.book');
 
-  let judul = document.getElementById('judul').value;
-  let penulis = document.getElementById('penulis').value;
-  let cover = document.getElementById('cover').value;
-
-  let bukuBaru = `
-    <div class="col-md-3 book">
-      <div class="card">
-        <img src="${cover}">
-        <div class="card-body">
-          <h5>${judul}</h5>
-          <p>${penulis}</p>
-        </div>
-      </div>
-    </div>
-  `;
-
-  document.getElementById('bookList').innerHTML += bukuBaru;
-
-  loadClickEvent(); // biar bisa diklik juga
-}
-
-// Modal detail
-function loadClickEvent(){
-  document.querySelectorAll('.book').forEach(book => {
-    book.onclick = function(){
-      let img = this.querySelector('img').src;
-      let title = this.querySelector('h5').innerText;
-      let author = this.querySelector('p').innerText;
-
-      document.getElementById('modalImg').src = img;
-      document.getElementById('modalTitle').innerText = title;
-      document.getElementById('modalAuthor').innerText = author;
-
-      new bootstrap.Modal(document.getElementById('detailModal')).show();
+  books.forEach(b => {
+    if(kategori === 'all' || b.dataset.kategori === kategori){
+      b.style.display = 'block';
+    } else {
+      b.style.display = 'none';
     }
   });
 }
 
-loadClickEvent();
+// Klik buku → modal
+document.querySelectorAll('.book').forEach(book => {
+  book.onclick = function(){
+    let img = this.querySelector('img').src;
+    let title = this.querySelector('h5').innerText;
+    let author = this.querySelector('p').innerText;
+
+    document.getElementById('modalImg').src = img;
+    document.getElementById('modalTitle').innerText = title;
+    document.getElementById('modalAuthor').innerText = author;
+
+    new bootstrap.Modal(document.getElementById('detailModal')).show();
+  }
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
