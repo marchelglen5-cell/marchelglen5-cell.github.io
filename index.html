@@ -17,32 +17,16 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* Fix dropdown */
-.navbar { position: relative; z-index: 9999; }
+.navbar { z-index: 9999; }
 
-.dropdown-menu {
-  z-index: 9999;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-}
-
-.dropdown-item:hover {
-  background: #1abc9c;
-  color: white;
-}
-
-/* Glass UI */
 .container {
   background: rgba(255,255,255,0.1);
   backdrop-filter: blur(15px);
   border-radius: 20px;
   padding: 25px;
   color: white;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
 }
 
-/* Card */
 .card {
   border: none;
   border-radius: 20px;
@@ -52,26 +36,11 @@ body {
 
 .card:hover {
   transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 .card img {
   height: 200px;
   object-fit: cover;
-}
-
-.book {
-  animation: fadeIn 0.8s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(20px);}
-  to { opacity:1; transform:translateY(0);}
-}
-
-h3 {
-  text-align: center;
-  font-weight: bold;
 }
 </style>
 </head>
@@ -81,48 +50,28 @@ h3 {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
-
-    <a class="navbar-brand d-flex align-items-center text-white" href="#">
-      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png"
-           width="40"
-           class="me-2 rounded-circle bg-white p-1">
-      <span style="font-weight:bold;">Jejak Pustaka</span>
-    </a>
+    <a class="navbar-brand text-white fw-bold" href="#">Jejak Pustaka</a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto">
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Beranda</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#koleksi">Daftar Koleksi</a>
-        </li>
+        <li class="nav-item"><a class="nav-link text-white" href="#">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#koleksi">Daftar Koleksi</a></li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
-            Kategori Buku
-          </a>
+          <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" onclick="filterKategori('all')">Semua</a></li>
-            <li><a class="dropdown-item" href="#" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
-            <li><a class="dropdown-item" href="#" onclick="filterKategori('database')">Database</a></li>
+            <li><a class="dropdown-item" onclick="filterKategori('all')">Semua</a></li>
+            <li><a class="dropdown-item" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
+            <li><a class="dropdown-item" onclick="filterKategori('database')">Database</a></li>
           </ul>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#event">Event</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-warning fw-bold" href="#">Login</a>
-        </li>
-
+        <li class="nav-item"><a class="nav-link text-white" href="#event">Event</a></li>
       </ul>
     </div>
   </div>
@@ -135,103 +84,83 @@ h3 {
 
 <!-- Koleksi -->
 <div class="container mt-5" id="koleksi">
-  <h3>Buku Populer</h3>
-
-  <div class="row" id="bookList">
-    <div class="col-md-3 book" data-kategori="pemrograman">
-      <div class="card">
-        <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg">
-        <div class="card-body">
-          <h5>Clean Code</h5>
-          <p>Robert C. Martin</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3 book" data-kategori="database">
-      <div class="card">
-        <img src="https://covers.openlibrary.org/b/id/240726-L.jpg">
-        <div class="card-body">
-          <h5>Database System Concepts</h5>
-          <p>Abraham Silberschatz</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3 book" data-kategori="pemrograman">
-      <div class="card">
-        <img src="https://covers.openlibrary.org/b/id/8101356-L.jpg">
-        <div class="card-body">
-          <h5>You Don't Know JS</h5>
-          <p>Kyle Simpson</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3 book" data-kategori="pemrograman">
-      <div class="card">
-        <img src="https://covers.openlibrary.org/b/id/10523338-L.jpg">
-        <div class="card-body">
-          <h5>Eloquent JavaScript</h5>
-          <p>Marijn Haverbeke</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h3 class="text-center">Buku Populer</h3>
+  <div class="row" id="bookList"></div>
 </div>
 
-<!-- EVENT (UPDATED) -->
+<!-- Event -->
 <div class="container mt-5" id="event">
-  <h3>Event yang Sedang Berlangsung</h3>
+  <h3 class="text-center">Event</h3>
 
   <div class="row">
-
     <div class="col-md-4">
       <div class="card p-3 text-center">
         <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" class="img-fluid rounded mb-3">
         <h5>Festival Literasi Nasional 2026</h5>
-        <p>Event literasi nasional untuk meningkatkan minat baca masyarakat Indonesia.</p>
-        <a href="https://sinpo.id/detail/109812/kemenkraf-ajak-semua-pegiat-gandengan-di-festival-literasi-nasional-2026" target="_blank" class="btn btn-warning">Lihat Detail</a>
+        <p>Meningkatkan minat baca masyarakat Indonesia.</p>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="card p-3 text-center">
         <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
-        <h5>Festival Literasi Perpusnas</h5>
-        <p>Kegiatan resmi dari Perpustakaan Nasional untuk mendukung literasi.</p>
-        <a href="https://www.perpusnas.go.id" target="_blank" class="btn btn-warning">Lihat Detail</a>
+        <h5>Festival Perpusnas</h5>
+        <p>Kegiatan resmi perpustakaan nasional.</p>
       </div>
     </div>
 
     <div class="col-md-4">
       <div class="card p-3 text-center">
         <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
-        <h5>Ubud Writers & Readers Festival</h5>
-        <p>Festival literasi internasional terbesar di Asia Tenggara.</p>
-        <a href="https://www.ubudwritersfestival.com/" target="_blank" class="btn btn-warning">Lihat Detail</a>
+        <h5>Ubud Writers Festival</h5>
+        <p>Festival literasi internasional.</p>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-// Search
-document.getElementById('search').addEventListener('keyup', function(){
-  let input = this.value.toLowerCase();
-  let books = document.querySelectorAll('.book');
-  books.forEach(b => {
-    b.style.display = b.innerText.toLowerCase().includes(input) ? 'block' : 'none';
-  });
-});
+let semuaBuku = [];
+let kategoriAktif = 'all';
 
-// Filter kategori
-function filterKategori(kategori){
-  let books = document.querySelectorAll('.book');
-  books.forEach(b => {
-    b.style.display = (kategori === 'all' || b.dataset.kategori === kategori) ? 'block' : 'none';
+fetch('data.json')
+  .then(res => res.json())
+  .then(data => {
+    semuaBuku = data;
+    tampilkanBuku();
   });
+
+function tampilkanBuku() {
+  let list = document.getElementById('bookList');
+  let search = document.getElementById('search').value.toLowerCase();
+
+  list.innerHTML = '';
+
+  semuaBuku.forEach(b => {
+    let cocokSearch = b.judul.toLowerCase().includes(search);
+    let cocokKategori = (kategoriAktif === 'all' || b.kategori === kategoriAktif);
+
+    if (cocokSearch && cocokKategori) {
+      list.innerHTML += `
+        <div class="col-md-3 mb-4">
+          <div class="card">
+            <img src="${b.cover}">
+            <div class="card-body text-dark">
+              <h5>${b.judul}</h5>
+              <p>${b.penulis}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  });
+}
+
+document.getElementById('search').addEventListener('keyup', tampilkanBuku);
+
+function filterKategori(kategori){
+  kategoriAktif = kategori;
+  tampilkanBuku();
 }
 </script>
 
