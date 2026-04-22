@@ -1,0 +1,14 @@
+[
+  {
+    "judul": "Clean Code",
+    "penulis": "Robert C. Martin",
+    "kategori": "pemrograman",
+    "cover": "https://covers.openlibrary.org/b/id/8231856-L.jpg"
+  },
+  {
+    "judul": "Database System Concepts",
+    "penulis": "Silberschatz",
+    "kategori": "database",
+    "cover": "https://covers.openlibrary.org/b/id/240726-L.jpg"
+  }
+]
