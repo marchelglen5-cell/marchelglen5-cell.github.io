@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -10,6 +11,19 @@
 
 <style>
 html { scroll-behavior: smooth; }
+
+/* TAMBAHAN */
+.card img {
+  height: 250px;
+  object-fit: cover;
+}
+.card {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: scale(1.03);
+}
 </style>
 
 </head>
@@ -17,51 +31,55 @@ html { scroll-behavior: smooth; }
 <body>
 
 <!-- Navbar -->
+
 <nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
     <a class="navbar-brand text-white fw-bold" href="#">Jejak Pustaka</a>
 
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-      <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-    </button>
+```
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
+  <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+</button>
 
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav ms-auto">
+<div class="collapse navbar-collapse" id="menu">
+  <ul class="navbar-nav ms-auto">
 
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Beranda</a>
-        </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="#">Beranda</a>
+    </li>
 
-        <!-- ✅ FIX KOLEKSI -->
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#" onclick="goToKoleksi(event)">Koleksi</a>
-        </li>
+    <li class="nav-item">
+      <a class="nav-link text-white" href="#" onclick="goToKoleksi(event)">Koleksi</a>
+    </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onclick="filterKategori('all')">Semua</a></li>
-            <li><a class="dropdown-item" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
-            <li><a class="dropdown-item" onclick="filterKategori('database')">Database</a></li>
-            <li><a class="dropdown-item" onclick="filterKategori('pengembangan')">Pengembangan</a></li>
-            <li><a class="dropdown-item" onclick="filterKategori('bisnis')">Bisnis</a></li>
-          </ul>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#event">Event</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
-        </li>
-
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" onclick="filterKategori('all')">Semua</a></li>
+        <li><a class="dropdown-item" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
+        <li><a class="dropdown-item" onclick="filterKategori('database')">Database</a></li>
+        <li><a class="dropdown-item" onclick="filterKategori('pengembangan')">Pengembangan</a></li>
+        <li><a class="dropdown-item" onclick="filterKategori('bisnis')">Bisnis</a></li>
       </ul>
-    </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link text-white" href="#event">Event</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
+    </li>
+
+  </ul>
+</div>
+```
+
   </div>
 </nav>
 
 <!-- LOGIN -->
+
 <div id="loginBox" class="container mt-3" style="display:none; max-width:300px;">
   <h5 class="text-center">Login</h5>
 
@@ -72,50 +90,82 @@ html { scroll-behavior: smooth; }
     Username atau password salah
   </div>
 
-  <button class="btn btn-primary w-100" onclick="login()">Masuk</button>
+<button class="btn btn-primary w-100" onclick="login()">Masuk</button>
+
 </div>
 
 <!-- Search -->
+
 <div class="container mt-4">
-  <input type="text" class="form-control" placeholder="Cari buku..." id="search">
+  <input type="text" class="form-control" placeholder="Cari buku atau penulis..." id="search">
 </div>
 
 <!-- Koleksi -->
+
 <div class="container mt-5" id="koleksi">
   <h3 class="text-center">Buku Populer</h3>
-  <div class="row" id="bookList"></div>
+  <div class="row" id="bookList">
+    <p class="text-center">Loading...</p>
+  </div>
 </div>
 
 <!-- Event -->
+
 <div class="container mt-5" id="event">
   <h3 class="text-center mb-4">Event Perpustakaan</h3>
 
   <div class="row">
 
-    <div class="col-md-4 mb-4">
-      <div class="card p-3 text-center">
-        <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" class="img-fluid rounded mb-3">
-        <h5>Festival Literasi Nasional 2026</h5>
-        <p>Meningkatkan minat baca masyarakat Indonesia.</p>
+```
+<div class="col-md-4 mb-4">
+  <div class="card p-3 text-center">
+    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" class="img-fluid rounded mb-3">
+    <h5>Festival Literasi Nasional 2026</h5>
+    <p>Meningkatkan minat baca masyarakat Indonesia.</p>
+  </div>
+</div>
+
+<div class="col-md-4 mb-4">
+  <div class="card p-3 text-center">
+    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
+    <h5>Workshop Digital Library</h5>
+    <p>Pelatihan penggunaan perpustakaan digital.</p>
+  </div>
+</div>
+
+<div class="col-md-4 mb-4">
+  <div class="card p-3 text-center">
+    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
+    <h5>Bedah Buku Nasional</h5>
+    <p>Diskusi buku bersama penulis nasional.</p>
+  </div>
+</div>
+```
+
+  </div>
+</div>
+
+<!-- MODAL DETAIL -->
+
+<div class="modal fade" id="detailModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalTitle" class="modal-title"></h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-4">
+            <img id="modalCover" class="img-fluid rounded">
+          </div>
+          <div class="col-md-8">
+            <p><strong>Penulis:</strong> <span id="modalPenulis"></span></p>
+            <p id="modalDeskripsi"></p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="col-md-4 mb-4">
-      <div class="card p-3 text-center">
-        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
-        <h5>Workshop Digital Library</h5>
-        <p>Pelatihan penggunaan perpustakaan digital.</p>
-      </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-      <div class="card p-3 text-center">
-        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
-        <h5>Bedah Buku Nasional</h5>
-        <p>Diskusi buku bersama penulis nasional.</p>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -128,22 +178,31 @@ fetch('./data.json')
 .then(data => {
   semuaBuku = data;
   tampilkanBuku();
+})
+.catch(() => {
+  document.getElementById('bookList').innerHTML =
+    "<p class='text-center text-danger'>Gagal memuat data</p>";
 });
 
 function tampilkanBuku(){
   let list = document.getElementById('bookList');
   let search = document.getElementById('search').value.toLowerCase();
-  list.innerHTML = '';
+
+  let html = "";
 
   semuaBuku.forEach(b => {
-    let cocokSearch = b.judul.toLowerCase().includes(search);
-    let cocokKategori = (kategoriAktif === 'all' || b.kategori === kategoriAktif);
+    let cocokSearch =
+      b.judul.toLowerCase().includes(search) ||
+      b.penulis.toLowerCase().includes(search);
+
+    let cocokKategori =
+      (kategoriAktif === 'all' || b.kategori === kategoriAktif);
 
     if(cocokSearch && cocokKategori){
-      list.innerHTML += `
+      html += `
       <div class="col-md-3 mb-4">
-        <div class="card">
-          <img src="${b.cover}">
+        <div class="card h-100" onclick="lihatDetail(${b.id})">
+          <img src="${b.cover}" class="card-img-top">
           <div class="card-body text-dark">
             <h5>${b.judul}</h5>
             <p>${b.penulis}</p>
@@ -152,6 +211,24 @@ function tampilkanBuku(){
       </div>`;
     }
   });
+
+  if(html === ""){
+    html = "<p class='text-center'>Buku tidak ditemukan</p>";
+  }
+
+  list.innerHTML = html;
+}
+
+// MODAL
+function lihatDetail(id){
+  let b = semuaBuku.find(x => x.id === id);
+
+  document.getElementById('modalTitle').innerText = b.judul;
+  document.getElementById('modalPenulis').innerText = b.penulis;
+  document.getElementById('modalDeskripsi').innerText = b.deskripsi;
+  document.getElementById('modalCover').src = b.cover;
+
+  new bootstrap.Modal(document.getElementById('detailModal')).show();
 }
 
 // SEARCH
@@ -163,13 +240,11 @@ function filterKategori(k){
   tampilkanBuku();
 }
 
-// ✅ FIX KOLEKSI
+// KOLEKSI
 function goToKoleksi(e){
   e.preventDefault();
-
   kategoriAktif = 'all';
   document.getElementById('search').value = '';
-
   tampilkanBuku();
 
   setTimeout(() => {
