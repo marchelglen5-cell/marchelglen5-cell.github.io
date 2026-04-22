@@ -6,15 +6,53 @@
 <title>Jejak Pustaka</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
 
 <style>
+body {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+  url('https://images.unsplash.com/photo-1512820790803-83ca734da794');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar { z-index: 9999; }
+
+.container {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 25px;
+  color: white;
+}
+
+.card {
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* LOGIN SIMPLE */
+#loginBox {
+  background: white;
+  color: black;
+  border-radius: 10px;
+  padding: 15px;
+}
+
 #errorMsg {
-  font-size: 14px;
   display: none;
 }
 </style>
-
 </head>
 
 <body>
@@ -22,7 +60,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="#">Jejak Pustaka</a>
+    <a class="navbar-brand text-white fw-bold">Jejak Pustaka</a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
       <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
@@ -31,8 +69,8 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto">
 
-        <li class="nav-item"><a class="nav-link text-white" href="#">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="#koleksi">Daftar Koleksi</a></li>
+        <li class="nav-item"><a class="nav-link text-white">Beranda</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="#koleksi">Koleksi</a></li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
@@ -45,18 +83,9 @@
 
         <li class="nav-item"><a class="nav-link text-white" href="#event">Event</a></li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Lainnya</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="anggota.html">Anggota</a></li>
-            <li><a class="dropdown-item" href="#">Tentang Kami</a></li>
-            <li><a class="dropdown-item" href="#">Kontak</a></li>
-          </ul>
-        </li>
-
         <!-- LOGIN -->
         <li class="nav-item">
-          <a class="nav-link text-warning fw-bold" href="#" onclick="tampilLogin()">Login</a>
+          <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
         </li>
 
       </ul>
@@ -64,19 +93,18 @@
   </div>
 </nav>
 
-<!-- LOGIN FORM -->
-<div id="loginBox" class="container mt-4" style="display:none; max-width:400px;">
-  <h4 class="text-center">Login Admin</h4>
+<!-- LOGIN BOX -->
+<div id="loginBox" class="container mt-3" style="display:none; max-width:300px;">
+  <h5 class="text-center">Login</h5>
 
   <input type="text" id="username" class="form-control mb-2" placeholder="Username">
   <input type="password" id="password" class="form-control mb-2" placeholder="Password">
 
-  <!-- ERROR -->
   <div id="errorMsg" class="text-danger mb-2">
-    Password atau username salah!
+    Username atau password salah
   </div>
 
-  <button class="btn btn-success w-100" onclick="login()">Login</button>
+  <button class="btn btn-primary w-100" onclick="login()">Masuk</button>
 </div>
 
 <!-- Search -->
@@ -87,106 +115,83 @@
 <!-- Koleksi -->
 <div class="container mt-5" id="koleksi">
   <h3 class="text-center">Buku Populer</h3>
-  <div class="row" id="bookList">
-    <p class="text-center">Loading...</p>
-  </div>
-</div>
-
-<!-- Event -->
-<div class="container mt-5" id="event">
-  <h3 class="text-center">Event</h3>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card p-3 text-center">
-        <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" class="img-fluid rounded mb-3">
-        <h5>Festival Literasi Nasional 2026</h5>
-      </div>
-    </div>
-  </div>
+  <div class="row" id="bookList"></div>
 </div>
 
 <script>
 let semuaBuku = [];
 let kategoriAktif = 'all';
 
-// FETCH DATA
 fetch('data.json')
-  .then(res => res.json())
-  .then(data => {
-    semuaBuku = data;
-    tampilkanBuku();
-  });
+.then(res => res.json())
+.then(data => {
+  semuaBuku = data;
+  tampilkanBuku();
+});
 
-// TAMPIL BUKU
-function tampilkanBuku() {
+function tampilkanBuku(){
   let list = document.getElementById('bookList');
   let search = document.getElementById('search').value.toLowerCase();
-
   list.innerHTML = '';
 
   semuaBuku.forEach(b => {
     let cocokSearch = b.judul.toLowerCase().includes(search);
     let cocokKategori = (kategoriAktif === 'all' || b.kategori === kategoriAktif);
 
-    if (cocokSearch && cocokKategori) {
+    if(cocokSearch && cocokKategori){
       list.innerHTML += `
-        <div class="col-md-3 mb-4">
-          <div class="card">
-            <img src="${b.cover}">
-            <div class="card-body text-dark">
-              <h5>${b.judul}</h5>
-              <p>${b.penulis}</p>
-            </div>
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <img src="${b.cover}">
+          <div class="card-body text-dark">
+            <h5>${b.judul}</h5>
+            <p>${b.penulis}</p>
           </div>
         </div>
-      `;
+      </div>`;
     }
   });
 }
 
 document.getElementById('search').addEventListener('keyup', tampilkanBuku);
 
-function filterKategori(kategori){
-  kategoriAktif = kategori;
+function filterKategori(k){
+  kategoriAktif = k;
   tampilkanBuku();
 }
 
-// LOGIN UI
-function tampilLogin(){
+// LOGIN
+function toggleLogin(){
   let box = document.getElementById('loginBox');
   box.style.display = box.style.display === 'none' ? 'block' : 'none';
 }
 
-// LOGIN FUNCTION
 function login(){
   let user = document.getElementById('username').value;
   let pass = document.getElementById('password').value;
   let error = document.getElementById('errorMsg');
 
   if(user === "admin" && pass === "123"){
-    localStorage.setItem("login", "true");
+    localStorage.setItem("login","true");
     error.style.display = "none";
-    alert("Login berhasil!");
     location.reload();
   } else {
     error.style.display = "block";
   }
 }
 
-// LOGOUT
 function logout(){
   localStorage.removeItem("login");
   location.reload();
 }
 
-// CEK LOGIN
 window.onload = function(){
   if(localStorage.getItem("login") === "true"){
     let nav = document.querySelector('.navbar-nav');
 
     nav.innerHTML += `
       <li class="nav-item">
-        <a class="nav-link text-success fw-bold">Admin</a>
+        <a class="nav-link text-success">Admin</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-danger" href="#" onclick="logout()">Logout</a>
