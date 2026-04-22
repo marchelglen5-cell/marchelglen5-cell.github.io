@@ -9,9 +9,7 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 </style>
 
 </head>
@@ -34,9 +32,9 @@ html {
           <a class="nav-link text-white" href="#">Beranda</a>
         </li>
 
-        <!-- ✅ KOLEKSI SUDAH DIPERBAIKI -->
+        <!-- ✅ FIX KOLEKSI -->
         <li class="nav-item">
-          <a class="nav-link text-white" href="#koleksi" onclick="tampilkanSemua()">Koleksi</a>
+          <a class="nav-link text-white" href="#" onclick="goToKoleksi(event)">Koleksi</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -165,11 +163,20 @@ function filterKategori(k){
   tampilkanBuku();
 }
 
-// ✅ FITUR KOLEKSI (BARU)
-function tampilkanSemua(){
+// ✅ FIX KOLEKSI
+function goToKoleksi(e){
+  e.preventDefault();
+
   kategoriAktif = 'all';
   document.getElementById('search').value = '';
+
   tampilkanBuku();
+
+  setTimeout(() => {
+    document.getElementById('koleksi').scrollIntoView({
+      behavior: "smooth"
+    });
+  }, 100);
 }
 
 // LOGIN
