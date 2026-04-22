@@ -7,8 +7,57 @@
   },
   {
     "judul": "Database System Concepts",
-    "penulis": "Silberschatz",
+    "penulis": "Abraham Silberschatz",
     "kategori": "database",
     "cover": "https://covers.openlibrary.org/b/id/240726-L.jpg"
+  },
+
+  {
+    "judul": "Atomic Habits",
+    "penulis": "James Clear",
+    "kategori": "pengembangan",
+    "cover": "https://covers.openlibrary.org/b/id/10594743-L.jpg"
+  },
+  {
+    "judul": "Rich Dad Poor Dad",
+    "penulis": "Robert Kiyosaki",
+    "kategori": "pengembangan",
+    "cover": "https://covers.openlibrary.org/b/id/8099256-L.jpg"
+  },
+  {
+    "judul": "The Psychology of Money",
+    "penulis": "Morgan Housel",
+    "kategori": "pengembangan",
+    "cover": "https://covers.openlibrary.org/b/id/10958359-L.jpg"
+  },
+  {
+    "judul": "Thinking, Fast and Slow",
+    "penulis": "Daniel Kahneman",
+    "kategori": "pengembangan",
+    "cover": "https://covers.openlibrary.org/b/id/8231996-L.jpg"
+  },
+  {
+    "judul": "Deep Work",
+    "penulis": "Cal Newport",
+    "kategori": "pengembangan",
+    "cover": "https://covers.openlibrary.org/b/id/8168691-L.jpg"
+  },
+  {
+    "judul": "The Lean Startup",
+    "penulis": "Eric Ries",
+    "kategori": "bisnis",
+    "cover": "https://covers.openlibrary.org/b/id/7222246-L.jpg"
+  },
+  {
+    "judul": "Start with Why",
+    "penulis": "Simon Sinek",
+    "kategori": "bisnis",
+    "cover": "https://covers.openlibrary.org/b/id/8226191-L.jpg"
+  },
+  {
+    "judul": "Zero to One",
+    "penulis": "Peter Thiel",
+    "kategori": "bisnis",
+    "cover": "https://covers.openlibrary.org/b/id/8370226-L.jpg"
   }
 ]
