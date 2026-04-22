@@ -41,7 +41,7 @@ body {
   object-fit: cover;
 }
 
-/* LOGIN SIMPLE */
+/* LOGIN */
 #loginBox {
   background: white;
   color: black;
@@ -83,7 +83,6 @@ body {
 
         <li class="nav-item"><a class="nav-link text-white" href="#event">Event</a></li>
 
-        <!-- LOGIN -->
         <li class="nav-item">
           <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
         </li>
@@ -93,7 +92,7 @@ body {
   </div>
 </nav>
 
-<!-- LOGIN BOX -->
+<!-- LOGIN -->
 <div id="loginBox" class="container mt-3" style="display:none; max-width:300px;">
   <h5 class="text-center">Login</h5>
 
@@ -116,6 +115,42 @@ body {
 <div class="container mt-5" id="koleksi">
   <h3 class="text-center">Buku Populer</h3>
   <div class="row" id="bookList"></div>
+</div>
+
+<!-- EVENT BARU -->
+<div class="container mt-5" id="event">
+  <h3 class="text-center mb-4">Event Perpustakaan</h3>
+
+  <div class="row">
+
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" class="img-fluid rounded mb-3">
+        <h5>Festival Literasi Nasional 2026</h5>
+        <p>Meningkatkan minat baca masyarakat Indonesia.</p>
+        <a href="#" class="btn btn-warning">Lihat Detail</a>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
+        <h5>Workshop Digital Library</h5>
+        <p>Pelatihan penggunaan perpustakaan digital.</p>
+        <a href="#" class="btn btn-warning">Lihat Detail</a>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 text-center">
+        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
+        <h5>Bedah Buku Nasional</h5>
+        <p>Diskusi buku bersama penulis nasional.</p>
+        <a href="#" class="btn btn-warning">Lihat Detail</a>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -177,26 +212,6 @@ function login(){
     location.reload();
   } else {
     error.style.display = "block";
-  }
-}
-
-function logout(){
-  localStorage.removeItem("login");
-  location.reload();
-}
-
-window.onload = function(){
-  if(localStorage.getItem("login") === "true"){
-    let nav = document.querySelector('.navbar-nav');
-
-    nav.innerHTML += `
-      <li class="nav-item">
-        <a class="nav-link text-success">Admin</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-danger" href="#" onclick="logout()">Logout</a>
-      </li>
-    `;
   }
 }
 </script>
