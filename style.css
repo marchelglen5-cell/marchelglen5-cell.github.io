@@ -19,15 +19,14 @@ body {
   color: white;
 }
 
+/* CARD */
 .card {
-  border: none;
   border-radius: 20px;
-  overflow: hidden;
   transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.03);
+  transform: scale(1.05);
 }
 
 .card img {
@@ -35,8 +34,16 @@ body {
   object-fit: cover;
 }
 
-.dropdown-menu {
+/* LOGIN SIMPLE */
+#loginBox {
+  background: white;
+  color: black;
   border-radius: 10px;
-  border: none;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  padding: 15px;
+}
+
+/* ERROR LOGIN */
+#errorMsg {
+  display: none;
+  font-size: 14px;
 }
