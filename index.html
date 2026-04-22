@@ -8,6 +8,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>
+
 </head>
 
 <body>
@@ -15,7 +21,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
   <div class="container">
-    <a class="navbar-brand text-white fw-bold">Jejak Pustaka</a>
+    <a class="navbar-brand text-white fw-bold" href="#">Jejak Pustaka</a>
 
     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
       <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
@@ -24,8 +30,14 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="navbar-nav ms-auto">
 
-        <li class="nav-item"><a class="nav-link text-white">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="#koleksi">Koleksi</a></li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Beranda</a>
+        </li>
+
+        <!-- ✅ KOLEKSI SUDAH DIPERBAIKI -->
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#koleksi" onclick="tampilkanSemua()">Koleksi</a>
+        </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
@@ -33,10 +45,14 @@
             <li><a class="dropdown-item" onclick="filterKategori('all')">Semua</a></li>
             <li><a class="dropdown-item" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
             <li><a class="dropdown-item" onclick="filterKategori('database')">Database</a></li>
+            <li><a class="dropdown-item" onclick="filterKategori('pengembangan')">Pengembangan</a></li>
+            <li><a class="dropdown-item" onclick="filterKategori('bisnis')">Bisnis</a></li>
           </ul>
         </li>
 
-        <li class="nav-item"><a class="nav-link text-white" href="#event">Event</a></li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#event">Event</a>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
@@ -72,7 +88,7 @@
   <div class="row" id="bookList"></div>
 </div>
 
-<!-- ✅ EVENT SUDAH DIPERBAIKI -->
+<!-- Event -->
 <div class="container mt-5" id="event">
   <h3 class="text-center mb-4">Event Perpustakaan</h3>
 
@@ -83,7 +99,6 @@
         <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" class="img-fluid rounded mb-3">
         <h5>Festival Literasi Nasional 2026</h5>
         <p>Meningkatkan minat baca masyarakat Indonesia.</p>
-        <button class="btn btn-warning">Detail</button>
       </div>
     </div>
 
@@ -92,7 +107,6 @@
         <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
         <h5>Workshop Digital Library</h5>
         <p>Pelatihan penggunaan perpustakaan digital.</p>
-        <button class="btn btn-warning">Detail</button>
       </div>
     </div>
 
@@ -101,7 +115,6 @@
         <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
         <h5>Bedah Buku Nasional</h5>
         <p>Diskusi buku bersama penulis nasional.</p>
-        <button class="btn btn-warning">Detail</button>
       </div>
     </div>
 
@@ -112,7 +125,7 @@
 let semuaBuku = [];
 let kategoriAktif = 'all';
 
-fetch('data.json')
+fetch('./data.json')
 .then(res => res.json())
 .then(data => {
   semuaBuku = data;
@@ -143,10 +156,19 @@ function tampilkanBuku(){
   });
 }
 
+// SEARCH
 document.getElementById('search').addEventListener('keyup', tampilkanBuku);
 
+// FILTER
 function filterKategori(k){
   kategoriAktif = k;
+  tampilkanBuku();
+}
+
+// ✅ FITUR KOLEKSI (BARU)
+function tampilkanSemua(){
+  kategoriAktif = 'all';
+  document.getElementById('search').value = '';
   tampilkanBuku();
 }
 
