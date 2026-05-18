@@ -1,178 +1,452 @@
 <!DOCTYPE html>
-
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jejak Pustaka</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
-<style>
-html { scroll-behavior: smooth; }
-
-body {
-  background-color: #f5f7fa;
-}
-
-.card img {
-  height: 250px;
-  object-fit: cover;
-}
-
-.card {
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.03);
-}
-</style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jejak Pustaka – Perpustakaan Umum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- Navbar -->
-
-<nav class="navbar navbar-expand-lg shadow" style="background: linear-gradient(90deg, #141e30, #243b55);">
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand text-white fw-bold" href="#">Jejak Pustaka</a>
-
-```
-<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#menu">
-  <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-</button>
-
-<div class="collapse navbar-collapse" id="menu">
-  <ul class="navbar-nav ms-auto">
-
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#">Beranda</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#" onclick="goToKoleksi(event)">Koleksi</a>
-    </li>
-
-    <!-- Kategori -->
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">Kategori</a>
-      <ul class="dropdown-menu">
-        <li><a class="dropdown-item" onclick="filterKategori('all')">Semua</a></li>
-        <li><a class="dropdown-item" onclick="filterKategori('pemrograman')">Pemrograman</a></li>
-        <li><a class="dropdown-item" onclick="filterKategori('database')">Database</a></li>
-        <li><a class="dropdown-item" onclick="filterKategori('pengembangan')">Pengembangan</a></li>
-        <li><a class="dropdown-item" onclick="filterKategori('bisnis')">Bisnis</a></li>
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <i class="bi bi-book-half fs-4 text-accent"></i>
+      <span class="brand-name">Jejak<span class="text-accent">Pustaka</span></span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link active" href="index.html"><i class="bi bi-house me-1"></i>Beranda</a></li>
+        <li class="nav-item"><a class="nav-link" href="koleksi.html"><i class="bi bi-collection me-1"></i>Koleksi Buku</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="bi bi-grid me-1"></i>Layanan</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="peminjaman.html"><i class="bi bi-arrow-left-right me-2"></i>Peminjaman & Pengembalian</a></li>
+            <li><a class="dropdown-item" href="keanggotaan.html"><i class="bi bi-person-badge me-2"></i>Keanggotaan</a></li>
+            <li><a class="dropdown-item" href="referensi.html"><i class="bi bi-journal-text me-2"></i>Layanan Referensi</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="digital.html"><i class="bi bi-laptop me-2"></i>Perpustakaan Digital</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"><i class="bi bi-people me-1"></i>Tentang</a>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="profil.html"><i class="bi bi-building me-2"></i>Profil Perpustakaan</a></li>
+            <li><a class="dropdown-item" href="anggota.html"><i class="bi bi-people me-2"></i>Tim Pengelola</a></li>
+            <li><a class="dropdown-item" href="jam-operasional.html"><i class="bi bi-clock me-2"></i>Jam Operasional</a></li>
+            <li><a class="dropdown-item" href="kontak.html"><i class="bi bi-envelope me-2"></i>Hubungi Kami</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#event"><i class="bi bi-calendar-event me-1"></i>Kegiatan</a></li>
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link btn btn-outline-accent px-3 py-1" href="#" onclick="toggleLoginModal(event)">
+            <i class="bi bi-person-circle me-1"></i>Masuk
+          </a>
+        </li>
       </ul>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link text-white" href="#event">Event</a>
-    </li>
-
-    <!-- ✅ MENU BARU -->
-    <li class="nav-item">
-      <a class="nav-link text-info fw-bold" href="tugas.html">TUGAS</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link text-warning fw-bold" href="#" onclick="toggleLogin()">Login</a>
-    </li>
-
-  </ul>
-</div>
-```
-
+    </div>
   </div>
 </nav>
 
-<!-- LOGIN -->
-
-<div id="loginBox" class="container mt-3" style="display:none; max-width:300px;">
-  <h5 class="text-center">Login</h5>
-
-  <input type="text" id="username" class="form-control mb-2" placeholder="Username">
-  <input type="password" id="password" class="form-control mb-2" placeholder="Password">
-
-  <div id="errorMsg" class="text-danger mb-2" style="display:none;">
-    Username atau password salah
-  </div>
-
-<button class="btn btn-primary w-100" onclick="login()">Masuk</button>
-
-</div>
-
-<!-- Search -->
-
-<div class="container mt-4">
-  <input type="text" class="form-control" placeholder="Cari buku atau penulis..." id="search">
-</div>
-
-<!-- Koleksi -->
-
-<div class="container mt-5" id="koleksi">
-  <h3 class="text-center">Buku Populer</h3>
-  <div class="row" id="bookList">
-    <p class="text-center">Loading...</p>
-  </div>
-</div>
-
-<!-- Event -->
-
-<div class="container mt-5" id="event">
-  <h3 class="text-center mb-4">Event Perpustakaan</h3>
-
-  <div class="row">
-
-```
-<div class="col-md-4 mb-4">
-  <div class="card p-3 text-center">
-    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" class="img-fluid rounded mb-3">
-    <h5>Festival Literasi Nasional 2026</h5>
-    <p>Meningkatkan minat baca masyarakat Indonesia.</p>
-  </div>
-</div>
-
-<div class="col-md-4 mb-4">
-  <div class="card p-3 text-center">
-    <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66" class="img-fluid rounded mb-3">
-    <h5>Workshop Digital Library</h5>
-    <p>Pelatihan penggunaan perpustakaan digital.</p>
-  </div>
-</div>
-
-<div class="col-md-4 mb-4">
-  <div class="card p-3 text-center">
-    <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" class="img-fluid rounded mb-3">
-    <h5>Bedah Buku Nasional</h5>
-    <p>Diskusi buku bersama penulis nasional.</p>
-  </div>
-</div>
-```
-
-  </div>
-</div>
-
-<!-- MODAL DETAIL -->
-
-<div class="modal fade" id="detailModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 id="modalTitle" class="modal-title"></h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
+<!-- ===== HERO SECTION ===== -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <div class="row align-items-center min-vh-hero">
+      <div class="col-lg-7">
+        <span class="hero-badge"><i class="bi bi-patch-check-fill me-2"></i>Perpustakaan Umum Terpercaya</span>
+        <h1 class="hero-title">Temukan <em>Dunia</em> Dalam Setiap Halaman</h1>
+        <p class="hero-subtitle">Lebih dari 10.000 koleksi buku tersedia untuk memperluas wawasan, menginspirasi kreativitas, dan mendukung perjalanan belajar Anda.</p>
+        <div class="hero-cta d-flex flex-wrap gap-3 mt-4">
+          <a href="koleksi.html" class="btn btn-primary-custom">
+            <i class="bi bi-search me-2"></i>Cari Buku
+          </a>
+          <a href="keanggotaan.html" class="btn btn-outline-light-custom">
+            <i class="bi bi-person-plus me-2"></i>Daftar Anggota
+          </a>
+        </div>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-4">
-            <img id="modalCover" class="img-fluid rounded">
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        <div class="hero-book-stack">
+          <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80" alt="Books" class="hero-img-main">
+          <div class="floating-card card-1">
+            <i class="bi bi-book-fill text-accent"></i>
+            <span>10.000+ Koleksi</span>
+          </div>
+          <div class="floating-card card-2">
+            <i class="bi bi-people-fill text-accent"></i>
+            <span>2.500+ Anggota</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f8f7f2"/></svg>
+  </div>
+</section>
+
+<!-- ===== SEARCH BAR ===== -->
+<section class="search-section py-4" style="background:#f8f7f2;">
+  <div class="container">
+    <div class="search-wrapper">
+      <div class="input-group search-bar shadow-sm">
+        <span class="input-group-text bg-white border-0 ps-3"><i class="bi bi-search text-muted"></i></span>
+        <input type="text" class="form-control border-0 py-3" id="searchInput" placeholder="Cari judul buku, penulis, atau kategori...">
+        <button class="btn btn-search px-4" onclick="goToSearch()">Cari</button>
+      </div>
+      <div class="quick-cats mt-3 d-flex flex-wrap gap-2">
+        <span class="cat-badge" onclick="goToCategory('pemrograman')">💻 Pemrograman</span>
+        <span class="cat-badge" onclick="goToCategory('bisnis')">📈 Bisnis</span>
+        <span class="cat-badge" onclick="goToCategory('pengembangan')">🌱 Pengembangan Diri</span>
+        <span class="cat-badge" onclick="goToCategory('fiksi')">📖 Fiksi</span>
+        <span class="cat-badge" onclick="goToCategory('database')">🗄️ Database</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATISTIK ===== -->
+<section class="stats-section py-5" style="background:#f8f7f2;">
+  <div class="container">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-journals"></i></div>
+          <div class="stat-number">10.450</div>
+          <div class="stat-label">Total Koleksi</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+          <div class="stat-number">2.580</div>
+          <div class="stat-label">Anggota Aktif</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+          <div class="stat-number">24</div>
+          <div class="stat-label">Kategori Buku</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="bi bi-arrow-left-right"></i></div>
+          <div class="stat-number">340</div>
+          <div class="stat-label">Peminjaman/Bulan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUKU TERBARU ===== -->
+<section class="py-5 section-books" style="background:#fff;">
+  <div class="container">
+    <div class="section-header d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <span class="section-label">Koleksi Kami</span>
+        <h2 class="section-title">Buku <em>Populer</em> Pilihan</h2>
+      </div>
+      <a href="koleksi.html" class="btn btn-link-custom">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs mb-4 d-flex flex-wrap gap-2">
+      <button class="filter-btn active" onclick="filterBuku('all', this)">Semua</button>
+      <button class="filter-btn" onclick="filterBuku('pemrograman', this)">Pemrograman</button>
+      <button class="filter-btn" onclick="filterBuku('database', this)">Database</button>
+      <button class="filter-btn" onclick="filterBuku('pengembangan', this)">Pengembangan Diri</button>
+      <button class="filter-btn" onclick="filterBuku('bisnis', this)">Bisnis</button>
+      <button class="filter-btn" onclick="filterBuku('fiksi', this)">Fiksi</button>
+    </div>
+
+    <div class="row g-4" id="bookList">
+      <div class="col-12 text-center py-5"><div class="spinner-border text-accent" role="status"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LAYANAN ===== -->
+<section class="services-section py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-label">Apa yang Kami Tawarkan</span>
+      <h2 class="section-title">Layanan <em>Perpustakaan</em></h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="service-card text-center">
+          <div class="service-icon"><i class="bi bi-arrow-left-right"></i></div>
+          <h5>Peminjaman Buku</h5>
+          <p>Pinjam buku favorit Anda hingga 2 minggu dengan kemudahan perpanjangan online.</p>
+          <a href="peminjaman.html" class="service-link">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="service-card text-center">
+          <div class="service-icon"><i class="bi bi-laptop"></i></div>
+          <h5>Perpustakaan Digital</h5>
+          <p>Akses ribuan e-book, jurnal, dan artikel ilmiah dari mana saja kapan saja.</p>
+          <a href="digital.html" class="service-link">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="service-card text-center">
+          <div class="service-icon"><i class="bi bi-journal-text"></i></div>
+          <h5>Layanan Referensi</h5>
+          <p>Pustakawan kami siap membantu Anda menemukan sumber informasi yang tepat.</p>
+          <a href="referensi.html" class="service-link">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="service-card text-center">
+          <div class="service-icon"><i class="bi bi-person-badge"></i></div>
+          <h5>Keanggotaan</h5>
+          <p>Daftarkan diri sebagai anggota dan nikmati berbagai keuntungan eksklusif.</p>
+          <a href="keanggotaan.html" class="service-link">Selengkapnya <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BANNER CTA ===== -->
+<section class="cta-banner py-5">
+  <div class="container">
+    <div class="cta-inner row align-items-center g-4">
+      <div class="col-lg-8">
+        <h3>Belum Menjadi Anggota?</h3>
+        <p>Daftarkan diri Anda sekarang dan nikmati akses ke seluruh koleksi, peminjaman gratis, serta berbagai program literasi menarik.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <a href="keanggotaan.html" class="btn btn-cta-white me-2">Daftar Sekarang</a>
+        <a href="kontak.html" class="btn btn-cta-outline">Hubungi Kami</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KEGIATAN / EVENT ===== -->
+<section class="py-5" id="event" style="background:#f8f7f2;">
+  <div class="container">
+    <div class="section-header d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <span class="section-label">Agenda</span>
+        <h2 class="section-title">Kegiatan <em>Perpustakaan</em></h2>
+      </div>
+      <a href="#" class="btn btn-link-custom">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="event-card">
+          <div class="event-img-wrap">
+            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&q=80" alt="Festival Literasi">
+            <span class="event-badge">Mendatang</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date"><i class="bi bi-calendar3 me-2"></i>15 Juni 2026</div>
+            <h5>Festival Literasi Nasional 2026</h5>
+            <p>Perayaan minat baca masyarakat dengan pameran buku, talkshow, dan berbagai lomba literasi.</p>
+            <a href="#" class="btn-event">Daftar Sekarang <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="event-card">
+          <div class="event-img-wrap">
+            <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&q=80" alt="Workshop Digital">
+            <span class="event-badge">Terbuka</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date"><i class="bi bi-calendar3 me-2"></i>22 Juni 2026</div>
+            <h5>Workshop Perpustakaan Digital</h5>
+            <p>Pelatihan penggunaan sistem perpustakaan digital dan akses e-book untuk pelajar dan mahasiswa.</p>
+            <a href="#" class="btn-event">Daftar Sekarang <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="event-card">
+          <div class="event-img-wrap">
+            <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=500&q=80" alt="Bedah Buku">
+            <span class="event-badge upcoming-badge">Segera</span>
+          </div>
+          <div class="event-body">
+            <div class="event-date"><i class="bi bi-calendar3 me-2"></i>5 Juli 2026</div>
+            <h5>Bedah Buku Bersama Penulis</h5>
+            <p>Diskusi mendalam buku-buku pilihan bersama penulis nasional dalam suasana hangat dan interaktif.</p>
+            <a href="#" class="btn-event">Daftar Sekarang <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== JAM OPERASIONAL ===== -->
+<section class="py-5" style="background:#fff;">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <span class="section-label">Kunjungi Kami</span>
+        <h2 class="section-title">Jam <em>Operasional</em></h2>
+        <p class="text-muted mt-3">Kami hadir untuk melayani kebutuhan literasi Anda setiap hari. Datang dan rasakan kenyamanan membaca di perpustakaan kami.</p>
+        <div class="hour-table mt-4">
+          <div class="hour-row">
+            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Senin – Jumat</span>
+            <span class="fw-semibold">08.00 – 20.00</span>
+          </div>
+          <div class="hour-row">
+            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Sabtu</span>
+            <span class="fw-semibold">09.00 – 17.00</span>
+          </div>
+          <div class="hour-row">
+            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Minggu</span>
+            <span class="fw-semibold">10.00 – 15.00</span>
+          </div>
+          <div class="hour-row closed">
+            <span><i class="bi bi-x-circle me-2"></i>Hari Libur Nasional</span>
+            <span class="fw-semibold">Tutup</span>
+          </div>
+        </div>
+        <div class="mt-4">
+          <a href="kontak.html" class="btn btn-primary-custom"><i class="bi bi-geo-alt me-2"></i>Lihat Lokasi</a>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="map-placeholder rounded-4 overflow-hidden shadow">
+          <img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=700&q=80" alt="Perpustakaan" class="w-100" style="height:380px;object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-section pt-5 pb-3">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <i class="bi bi-book-half fs-4 text-accent"></i>
+          <span class="brand-name text-white fs-5">Jejak<span class="text-accent">Pustaka</span></span>
+        </div>
+        <p class="text-muted-footer">Perpustakaan umum yang berkomitmen untuk menjadi pusat ilmu pengetahuan, literasi, dan kebudayaan bagi masyarakat.</p>
+        <div class="social-links mt-3 d-flex gap-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Layanan</h6>
+        <ul class="footer-links">
+          <li><a href="peminjaman.html">Peminjaman</a></li>
+          <li><a href="digital.html">E-Library</a></li>
+          <li><a href="referensi.html">Referensi</a></li>
+          <li><a href="keanggotaan.html">Keanggotaan</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Informasi</h6>
+        <ul class="footer-links">
+          <li><a href="profil.html">Profil</a></li>
+          <li><a href="anggota.html">Tim Pengelola</a></li>
+          <li><a href="#event">Kegiatan</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Hubungi Kami</h6>
+        <ul class="footer-contact">
+          <li><i class="bi bi-geo-alt-fill text-accent"></i> Jl. Pustaka Raya No. 1, Medan, Sumatera Utara</li>
+          <li><i class="bi bi-telephone-fill text-accent"></i> (061) 123-4567</li>
+          <li><i class="bi bi-envelope-fill text-accent"></i> info@jejakpustaka.id</li>
+          <li><i class="bi bi-clock-fill text-accent"></i> Senin–Jumat: 08.00–20.00</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="footer-divider mt-5">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-muted-footer small">
+        © 2026 Jejak Pustaka. Hak cipta dilindungi.
+      </div>
+      <div class="col-md-6 text-md-end text-muted-footer small">
+        <a href="#" class="footer-bottom-link">Kebijakan Privasi</a> &nbsp;|&nbsp;
+        <a href="#" class="footer-bottom-link">Syarat & Ketentuan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== MODAL LOGIN ===== -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:380px;">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+      <div class="modal-header border-0 login-header text-white p-4">
+        <div>
+          <h5 class="mb-1 fw-bold"><i class="bi bi-person-circle me-2"></i>Masuk Anggota</h5>
+          <small class="opacity-75">Selamat datang kembali di Jejak Pustaka</small>
+        </div>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4">
+        <div class="mb-3">
+          <label class="form-label fw-semibold small">Username</label>
+          <input type="text" id="loginUser" class="form-control form-control-login" placeholder="Masukkan username">
+        </div>
+        <div class="mb-3">
+          <label class="form-label fw-semibold small">Password</label>
+          <input type="password" id="loginPass" class="form-control form-control-login" placeholder="Masukkan password">
+        </div>
+        <div id="loginError" class="alert alert-danger py-2 small d-none">
+          <i class="bi bi-exclamation-triangle me-1"></i>Username atau password salah.
+        </div>
+        <button class="btn btn-primary-custom w-100 py-2 mt-1" onclick="doLogin()">Masuk</button>
+        <div class="text-center mt-3">
+          <small class="text-muted">Belum punya akun? <a href="keanggotaan.html" class="text-accent fw-semibold">Daftar di sini</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL DETAIL BUKU ===== -->
+<div class="modal fade" id="bookModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+      <div class="modal-header border-0 p-4">
+        <h5 id="modalTitle" class="modal-title fw-bold"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4 pt-0">
+        <div class="row g-4">
+          <div class="col-md-4 text-center">
+            <img id="modalCover" class="rounded-3 shadow" style="max-height:260px;width:100%;object-fit:cover;">
+            <div id="modalStatus" class="mt-3"></div>
           </div>
           <div class="col-md-8">
-            <p><strong>Penulis:</strong> <span id="modalPenulis"></span></p>
-            <p id="modalDeskripsi"></p>
+            <table class="table table-borderless modal-info-table">
+              <tr><td class="text-muted small">Penulis</td><td id="modalPenulis" class="fw-semibold"></td></tr>
+              <tr><td class="text-muted small">Kategori</td><td><span id="modalKategori" class="badge-kategori"></span></td></tr>
+              <tr><td class="text-muted small">Tahun Terbit</td><td id="modalTahun"></td></tr>
+            </table>
+            <p class="text-muted mt-2" id="modalDeskripsi" style="font-size:.95rem;line-height:1.7;"></p>
+            <div class="mt-3 d-flex gap-2 flex-wrap">
+              <button class="btn btn-primary-custom" onclick="pinjamBuku()"><i class="bi bi-bookmark-plus me-2"></i>Pinjam Buku</button>
+              <button class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Tutup</button>
+            </div>
           </div>
         </div>
       </div>
@@ -180,115 +454,127 @@ body {
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+// ===== DATA =====
 let semuaBuku = [];
 let kategoriAktif = 'all';
+let selectedBook = null;
 
 fetch('./data.json')
-.then(res => res.json())
-.then(data => {
-  semuaBuku = data;
-  tampilkanBuku();
-})
-.catch(() => {
-  document.getElementById('bookList').innerHTML =
-    "<p class='text-center text-danger'>Gagal memuat data</p>";
-});
-
-function tampilkanBuku(){
-  let list = document.getElementById('bookList');
-  let search = document.getElementById('search').value.toLowerCase();
-
-  let html = "";
-
-  semuaBuku.forEach(b => {
-    let cocokSearch =
-      b.judul.toLowerCase().includes(search) ||
-      b.penulis.toLowerCase().includes(search);
-
-    let cocokKategori =
-      (kategoriAktif === 'all' || b.kategori === kategoriAktif);
-
-    if(cocokSearch && cocokKategori){
-      html += `
-      <div class="col-md-3 mb-4">
-        <div class="card h-100" onclick="lihatDetail(${b.id})">
-          <img src="${b.cover}" class="card-img-top">
-          <div class="card-body text-dark">
-            <h5>${b.judul}</h5>
-            <p>${b.penulis}</p>
-          </div>
-        </div>
+  .then(r => r.json())
+  .then(data => {
+    semuaBuku = data;
+    tampilkanBuku();
+  })
+  .catch(() => {
+    document.getElementById('bookList').innerHTML = `
+      <div class="col-12 text-center text-muted py-4">
+        <i class="bi bi-exclamation-circle fs-3"></i>
+        <p class="mt-2">Gagal memuat data buku.</p>
       </div>`;
-    }
   });
 
-  if(html === ""){
-    html = "<p class='text-center'>Buku tidak ditemukan</p>";
+function tampilkanBuku() {
+  const list = document.getElementById('bookList');
+  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const filtered = semuaBuku.filter(b => {
+    const matchSearch = !search || b.judul.toLowerCase().includes(search) || b.penulis.toLowerCase().includes(search);
+    const matchKat = kategoriAktif === 'all' || b.kategori === kategoriAktif;
+    return matchSearch && matchKat;
+  });
+
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="col-12 text-center text-muted py-5"><i class="bi bi-search fs-2"></i><p class="mt-2">Buku tidak ditemukan.</p></div>`;
+    return;
   }
 
+  const html = filtered.slice(0, 8).map(b => `
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="book-card" onclick="lihatDetail(${b.id})">
+        <div class="book-cover-wrap">
+          <img src="${b.cover}" alt="${b.judul}" loading="lazy">
+          <div class="book-overlay"><span><i class="bi bi-eye me-1"></i>Detail</span></div>
+          ${!b.tersedia ? '<span class="badge-not-available">Dipinjam</span>' : ''}
+        </div>
+        <div class="book-info">
+          <h6 class="book-title">${b.judul}</h6>
+          <p class="book-author">${b.penulis}</p>
+          <span class="book-kat">${b.kategori}</span>
+        </div>
+      </div>
+    </div>`).join('');
   list.innerHTML = html;
 }
 
-// MODAL
-function lihatDetail(id){
-  let b = semuaBuku.find(x => x.id === id);
+function filterBuku(kat, btn) {
+  kategoriAktif = kat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  tampilkanBuku();
+}
 
-  document.getElementById('modalTitle').innerText = b.judul;
-  document.getElementById('modalPenulis').innerText = b.penulis;
-  document.getElementById('modalDeskripsi').innerText = b.deskripsi;
+function lihatDetail(id) {
+  const b = semuaBuku.find(x => x.id === id);
+  if (!b) return;
+  selectedBook = b;
+  document.getElementById('modalTitle').textContent = b.judul;
+  document.getElementById('modalPenulis').textContent = b.penulis;
+  document.getElementById('modalKategori').textContent = b.kategori;
+  document.getElementById('modalTahun').textContent = b.tahun || '-';
+  document.getElementById('modalDeskripsi').textContent = b.deskripsi || '';
   document.getElementById('modalCover').src = b.cover;
-
-  new bootstrap.Modal(document.getElementById('detailModal')).show();
+  document.getElementById('modalStatus').innerHTML = b.tersedia
+    ? `<span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill"><i class="bi bi-check-circle me-1"></i>Tersedia</span>`
+    : `<span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill"><i class="bi bi-x-circle me-1"></i>Sedang Dipinjam</span>`;
+  new bootstrap.Modal(document.getElementById('bookModal')).show();
 }
 
-// SEARCH
-document.getElementById('search').addEventListener('keyup', tampilkanBuku);
-
-// FILTER
-function filterKategori(k){
-  kategoriAktif = k;
-  tampilkanBuku();
+function pinjamBuku() {
+  if (!selectedBook) return;
+  if (!selectedBook.tersedia) { alert('Buku ini sedang dipinjam.'); return; }
+  alert(`Permintaan peminjaman "${selectedBook.judul}" berhasil dikirim!\nSilakan kunjungi meja layanan untuk konfirmasi.`);
 }
 
-// KOLEKSI
-function goToKoleksi(e){
+function toggleLoginModal(e) {
   e.preventDefault();
-
-  kategoriAktif = 'all';
-  document.getElementById('search').value = '';
-
-  tampilkanBuku();
-
-  setTimeout(() => {
-    document.getElementById('koleksi').scrollIntoView({
-      behavior: "smooth"
-    });
-  }, 100);
+  new bootstrap.Modal(document.getElementById('loginModal')).show();
 }
 
-// LOGIN
-function toggleLogin(){
-  let box = document.getElementById('loginBox');
-  box.style.display = box.style.display === 'none' ? 'block' : 'none';
-}
-
-function login(){
-  let user = document.getElementById('username').value;
-  let pass = document.getElementById('password').value;
-  let error = document.getElementById('errorMsg');
-
-  if(user === "admin" && pass === "123"){
-    localStorage.setItem("login","true");
-    error.style.display = "none";
-    location.reload();
+function doLogin() {
+  const u = document.getElementById('loginUser').value;
+  const p = document.getElementById('loginPass').value;
+  const err = document.getElementById('loginError');
+  if (u === 'admin' && p === '123') {
+    err.classList.add('d-none');
+    bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+    alert('Login berhasil! Selamat datang, ' + u);
   } else {
-    error.style.display = "block";
+    err.classList.remove('d-none');
   }
 }
+
+function goToSearch() {
+  const q = document.getElementById('searchInput').value;
+  if (q) window.location.href = `koleksi.html?q=${encodeURIComponent(q)}`;
+}
+
+function goToCategory(kat) {
+  window.location.href = `koleksi.html?kategori=${kat}`;
+}
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Enter key search
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('searchInput')?.addEventListener('keypress', e => {
+    if (e.key === 'Enter') goToSearch();
+  });
+});
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
