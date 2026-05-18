@@ -5,12 +5,343 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jejak Pustaka – Perpustakaan Umum</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== GLOBAL ===== */
+    :root {
+      --accent: #c8892a;
+      --accent-light: #f5e6cc;
+      --accent-dark: #a06a18;
+      --dark-bg: #1a1a2e;
+      --body-bg: #f8f7f2;
+      --white: #ffffff;
+      --text-dark: #2c2c2c;
+      --text-muted: #6c757d;
+      --border-light: #e8e4d9;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; color: var(--text-dark); background: var(--white); }
+    h1,h2,h3,h4,h5,h6 { font-family: 'Playfair Display', serif; }
+    em { font-style: italic; color: var(--accent); }
+    .text-accent { color: var(--accent) !important; }
+
+    /* ===== NAVBAR ===== */
+    #mainNav {
+      background: transparent;
+      transition: background .35s, box-shadow .35s;
+      padding: 14px 0;
+    }
+    #mainNav.scrolled {
+      background: rgba(26,26,46,.97);
+      box-shadow: 0 2px 20px rgba(0,0,0,.3);
+      padding: 10px 0;
+    }
+    .brand-name { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: #fff; }
+    .nav-link { color: rgba(255,255,255,.85) !important; font-weight: 500; font-size: .92rem; transition: color .2s; }
+    .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
+    .btn-outline-accent { border: 1.5px solid var(--accent); color: var(--accent) !important; border-radius: 20px; font-size: .88rem; transition: all .2s; }
+    .btn-outline-accent:hover { background: var(--accent); color: #fff !important; }
+    .dropdown-menu-dark { background: rgba(26,26,46,.97); border: 1px solid rgba(255,255,255,.1); }
+    .dropdown-item { font-size: .88rem; padding: .5rem 1rem; }
+
+    /* ===== HERO ===== */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1400&q=60') center/cover;
+      opacity: .12;
+    }
+    .hero-content { position: relative; z-index: 2; padding-top: 100px; }
+    .min-vh-hero { min-height: 85vh; }
+    .hero-badge {
+      display: inline-flex; align-items: center;
+      background: rgba(200,137,42,.15); border: 1px solid rgba(200,137,42,.35);
+      color: var(--accent); border-radius: 20px; padding: 6px 16px; font-size: .82rem;
+      font-weight: 600; letter-spacing: .05em; margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 5vw, 3.8rem); color: #fff; line-height: 1.15;
+      font-weight: 700; margin-bottom: 1.2rem;
+    }
+    .hero-subtitle { font-size: 1.05rem; color: rgba(255,255,255,.75); line-height: 1.8; max-width: 540px; }
+    .btn-primary-custom {
+      background: var(--accent); color: #fff; border: none;
+      border-radius: 30px; padding: 12px 28px; font-weight: 600; font-size: .92rem;
+      transition: all .25s; box-shadow: 0 4px 15px rgba(200,137,42,.35);
+    }
+    .btn-primary-custom:hover { background: var(--accent-dark); color: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,137,42,.45); }
+    .btn-outline-light-custom {
+      background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.5);
+      border-radius: 30px; padding: 12px 28px; font-weight: 600; font-size: .92rem; transition: all .25s;
+    }
+    .btn-outline-light-custom:hover { background: rgba(255,255,255,.1); color: #fff; border-color: #fff; }
+    .hero-book-stack { position: relative; padding: 20px; }
+    .hero-img-main { width: 100%; max-width: 360px; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    .floating-card {
+      position: absolute; background: rgba(255,255,255,.95);
+      border-radius: 12px; padding: 10px 16px; display: flex; align-items: center;
+      gap: 8px; font-weight: 600; font-size: .85rem; box-shadow: 0 8px 25px rgba(0,0,0,.2);
+      animation: float 3s ease-in-out infinite;
+    }
+    .card-1 { bottom: 40px; left: -20px; animation-delay: 0s; }
+    .card-2 { top: 40px; right: -20px; animation-delay: 1.5s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .hero-wave { position: absolute; bottom: 0; left: 0; right: 0; }
+    .hero-wave svg { display: block; }
+
+    /* ===== SEARCH ===== */
+    .search-bar { border-radius: 50px; overflow: hidden; }
+    .search-bar .form-control:focus { box-shadow: none; }
+    .btn-search { background: var(--accent); color: #fff; font-weight: 600; border: none; border-radius: 0 50px 50px 0; }
+    .btn-search:hover { background: var(--accent-dark); color: #fff; }
+    .cat-badge {
+      background: #fff; border: 1px solid var(--border-light); border-radius: 20px;
+      padding: 5px 14px; font-size: .82rem; cursor: pointer; transition: all .2s; color: var(--text-dark);
+    }
+    .cat-badge:hover { background: var(--accent-light); border-color: var(--accent); }
+
+    /* ===== STATS ===== */
+    .stat-card { padding: 24px 16px; background: #fff; border-radius: 16px; border: 1px solid var(--border-light); transition: transform .2s, box-shadow .2s; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+    .stat-icon { font-size: 2rem; color: var(--accent); margin-bottom: 8px; }
+    .stat-number { font-size: 1.8rem; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--text-dark); }
+    .stat-label { font-size: .82rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ===== SECTION LABELS ===== */
+    .section-label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: .4rem; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--text-dark); margin: 0; line-height: 1.3; }
+    .btn-link-custom { color: var(--accent); font-weight: 600; font-size: .88rem; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+    .btn-link-custom:hover { color: var(--accent-dark); }
+
+    /* ===== TTS HEADING BUTTON ===== */
+    .tts-heading-btn {
+      background: var(--accent-light); border: none; border-radius: 50%;
+      width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+      color: var(--accent); cursor: pointer; transition: all .2s; margin-left: 10px;
+      vertical-align: middle; flex-shrink: 0;
+    }
+    .tts-heading-btn:hover { background: var(--accent); color: #fff; transform: scale(1.1); }
+    .tts-heading-btn.playing { background: var(--accent); color: #fff; animation: pulse-tts .8s ease-in-out infinite; }
+    @keyframes pulse-tts { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-value-card {
+      background: var(--body-bg); border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0; padding: 14px 16px; height: 100%;
+    }
+    .about-value-card h6 { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: .88rem; margin-bottom: 4px; }
+    .about-img-wrap { position: relative; }
+    .about-float-card {
+      position: absolute; bottom: -1rem; left: 1rem;
+      background: #fff; border-radius: 12px; padding: 12px 20px;
+      display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.12); border: 1px solid var(--border-light);
+    }
+    .about-mini-stat { text-align: center; }
+    .about-mini-stat .num { font-size: 1.1rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; display: block; }
+    .about-mini-stat small { font-size: .7rem; color: var(--text-muted); }
+    .team-mini-card { background: var(--body-bg); border-radius: 12px; padding: 14px 8px; }
+    .team-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .85rem; color: var(--accent);
+    }
+
+    /* ===== CALCULATOR ===== */
+    .calc-box { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); }
+    .calc-header { background: var(--accent); color: white; padding: 18px 24px; }
+    .calc-tab {
+      padding: 6px 18px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+      cursor: pointer; border: 1.5px solid var(--border-light); background: transparent;
+      color: var(--text-muted); transition: all .2s;
+    }
+    .calc-tab.active, .calc-tab:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .calc-result {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 12px; background: var(--body-bg); border-radius: 10px; padding: 16px; text-align: center;
+    }
+    .calc-res-val { font-size: 1.1rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; }
+    .calc-res-item.danger .calc-res-val { color: #dc3545; }
+    .calc-res-lbl { font-size: .72rem; color: var(--text-muted); margin-top: 2px; }
+    .calc-note {
+      font-size: .82rem; color: var(--text-muted);
+      background: var(--body-bg); border-radius: 8px; padding: 10px 14px; border-left: 3px solid var(--accent);
+    }
+
+    /* ===== BOOKS ===== */
+    .filter-btn {
+      padding: 6px 18px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+      border: 1.5px solid var(--border-light); background: transparent; color: var(--text-muted);
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn.active, .filter-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .book-card { border-radius: 14px; overflow: hidden; background: #fff; border: 1px solid var(--border-light); cursor: pointer; transition: transform .25s, box-shadow .25s; }
+    .book-card:hover { transform: translateY(-6px); box-shadow: 0 12px 35px rgba(0,0,0,.1); }
+    .book-cover-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
+    .book-cover-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .book-card:hover .book-cover-wrap img { transform: scale(1.06); }
+    .book-overlay { position: absolute; inset: 0; background: rgba(26,26,46,.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; color: #fff; font-size: .85rem; font-weight: 600; }
+    .book-card:hover .book-overlay { opacity: 1; }
+    .badge-not-available { position: absolute; top: 8px; right: 8px; background: #dc3545; color: #fff; font-size: .7rem; padding: 3px 8px; border-radius: 10px; font-weight: 600; }
+    .book-info { padding: 12px; }
+    .book-title { font-family: 'Nunito', sans-serif; font-size: .85rem; font-weight: 700; margin: 0 0 4px; color: var(--text-dark); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .book-author { font-size: .75rem; color: var(--text-muted); margin: 0 0 6px; }
+    .book-kat { font-size: .7rem; background: var(--accent-light); color: var(--accent); padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+
+    /* ===== SERVICES ===== */
+    .services-section { background: var(--body-bg); }
+    .service-card { background: #fff; border-radius: 16px; padding: 28px 20px; border: 1px solid var(--border-light); transition: transform .25s, box-shadow .25s; height: 100%; }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,.08); }
+    .service-icon { font-size: 2.2rem; color: var(--accent); margin-bottom: 14px; }
+    .service-link { color: var(--accent); font-weight: 600; font-size: .85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; }
+    .service-link:hover { color: var(--accent-dark); }
+
+    /* ===== CTA BANNER ===== */
+    .cta-banner { background: linear-gradient(135deg, var(--dark-bg) 0%, #0f3460 100%); }
+    .cta-inner { padding: 20px; }
+    .cta-inner h3 { color: #fff; font-weight: 700; }
+    .cta-inner p { color: rgba(255,255,255,.75); margin: 0; }
+    .btn-cta-white { background: #fff; color: var(--accent); font-weight: 700; border-radius: 25px; padding: 10px 24px; border: none; transition: all .2s; }
+    .btn-cta-white:hover { background: var(--accent-light); color: var(--accent); }
+    .btn-cta-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.5); border-radius: 25px; padding: 10px 24px; font-weight: 600; transition: all .2s; }
+    .btn-cta-outline:hover { background: rgba(255,255,255,.1); color: #fff; border-color: #fff; }
+
+    /* ===== EVENTS ===== */
+    .event-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); transition: transform .25s, box-shadow .25s; }
+    .event-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,.08); }
+    .event-img-wrap { position: relative; }
+    .event-img-wrap img { width: 100%; height: 200px; object-fit: cover; }
+    .event-badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; font-size: .72rem; font-weight: 700; padding: 4px 12px; border-radius: 10px; }
+    .upcoming-badge { background: #198754 !important; }
+    .event-body { padding: 18px; }
+    .event-date { font-size: .8rem; color: var(--text-muted); margin-bottom: 8px; }
+    .event-body h5 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
+    .event-body p { font-size: .85rem; color: var(--text-muted); line-height: 1.6; }
+    .btn-event { color: var(--accent); font-weight: 700; font-size: .82rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn-event:hover { color: var(--accent-dark); }
+
+    /* ===== HOURS ===== */
+    .hour-table { display: flex; flex-direction: column; gap: 10px; }
+    .hour-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--body-bg); border-radius: 10px; font-size: .88rem; }
+    .hour-row.closed { color: var(--text-muted); }
+
+    /* ===== FOOTER ===== */
+    .footer-section { background: var(--dark-bg); }
+    .text-muted-footer { color: rgba(255,255,255,.55); font-size: .88rem; }
+    .footer-heading { color: rgba(255,255,255,.9); font-family: 'Nunito', sans-serif; font-weight: 700; margin-bottom: .8rem; }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin-bottom: .4rem; }
+    .footer-links a { color: rgba(255,255,255,.55); font-size: .85rem; text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-contact { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+    .footer-contact li { color: rgba(255,255,255,.65); font-size: .85rem; display: flex; align-items: flex-start; gap: 8px; }
+    .social-links a { color: rgba(255,255,255,.6); font-size: 1.2rem; transition: color .2s; text-decoration: none; }
+    .social-links a:hover { color: var(--accent); }
+    .footer-divider { border-color: rgba(255,255,255,.1); }
+    .footer-bottom-link { color: rgba(255,255,255,.5); text-decoration: none; transition: color .2s; }
+    .footer-bottom-link:hover { color: var(--accent); }
+
+    /* ===== MODAL ===== */
+    .login-header { background: linear-gradient(135deg, var(--dark-bg), #0f3460); }
+    .form-control-login { border-radius: 8px; border: 1px solid var(--border-light); padding: 10px 14px; }
+    .form-control-login:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(200,137,42,.15); }
+    .modal-info-table td { padding: 6px 8px; font-size: .88rem; }
+    .badge-kategori { background: var(--accent-light); color: var(--accent); padding: 4px 12px; border-radius: 10px; font-size: .8rem; font-weight: 600; }
+
+    /* ===== TTS BUBBLE (DISABILITY WIDGET) ===== */
+    .tts-bubble-btn {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none;
+      box-shadow: 0 6px 24px rgba(200,137,42,.45);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; cursor: pointer; transition: transform .2s, box-shadow .2s;
+    }
+    .tts-bubble-btn:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(200,137,42,.6); }
+    .tts-bubble-btn.active { background: #dc3545; box-shadow: 0 6px 24px rgba(220,53,69,.4); }
+    .tts-bubble-btn .tts-badge {
+      position: absolute; top: -4px; right: -4px;
+      width: 18px; height: 18px; background: var(--dark-bg); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: .55rem; color: #fff;
+    }
+    .tts-panel {
+      position: fixed; bottom: 100px; right: 28px; z-index: 9998;
+      width: 320px; background: #fff; border-radius: 18px;
+      box-shadow: 0 16px 50px rgba(0,0,0,.18); border: 1px solid var(--border-light);
+      overflow: hidden; display: none; flex-direction: column;
+      max-height: 520px;
+    }
+    .tts-panel.show { display: flex; animation: slideUpPanel .25s ease; }
+    @keyframes slideUpPanel { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .tts-panel-header {
+      background: var(--dark-bg); color: #fff; padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .tts-panel-header h6 { margin: 0; font-family: 'Nunito', sans-serif; font-size: .9rem; font-weight: 700; }
+    .tts-panel-header small { color: rgba(255,255,255,.6); font-size: .72rem; }
+    .tts-close-btn { background: none; border: none; color: rgba(255,255,255,.7); font-size: 1.1rem; cursor: pointer; padding: 0; line-height: 1; }
+    .tts-close-btn:hover { color: #fff; }
+    .tts-controls { padding: 12px 16px; background: var(--body-bg); border-bottom: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 8px; }
+    .tts-speed-row { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--text-muted); }
+    .tts-speed-row input[type=range] { flex: 1; accent-color: var(--accent); }
+    .tts-content-list { overflow-y: auto; flex: 1; padding: 8px; }
+    .tts-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 10px 12px; border-radius: 10px; cursor: pointer;
+      border: 1px solid transparent; transition: all .2s; margin-bottom: 4px;
+    }
+    .tts-item:hover { background: var(--body-bg); border-color: var(--border-light); }
+    .tts-item.playing { background: var(--accent-light); border-color: var(--accent); }
+    .tts-item-icon {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: var(--accent-light); display: flex; align-items: center;
+      justify-content: center; color: var(--accent); font-size: .9rem; transition: all .2s;
+    }
+    .tts-item.playing .tts-item-icon { background: var(--accent); color: #fff; }
+    .tts-item-text { flex: 1; min-width: 0; }
+    .tts-item-label { font-size: .8rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tts-item-sub { font-size: .7rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+    .tts-item.playing .tts-item-label { color: var(--accent-dark); }
+    .tts-progress-bar { height: 3px; background: var(--border-light); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+    .tts-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; transition: width .3s linear; }
+    .tts-footer { padding: 10px 16px; background: var(--body-bg); border-top: 1px solid var(--border-light); display: flex; gap: 6px; }
+    .tts-footer-btn {
+      flex: 1; padding: 7px; border-radius: 8px; font-size: .75rem; font-weight: 600;
+      border: 1px solid var(--border-light); background: #fff; color: var(--text-muted);
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;
+      transition: all .2s;
+    }
+    .tts-footer-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .tts-footer-btn.stop-btn:hover { background: #dc3545; border-color: #dc3545; }
+
+    .tts-now-playing {
+      padding: 10px 16px; background: var(--accent); color: #fff;
+      font-size: .78rem; display: none; align-items: center; gap: 8px;
+    }
+    .tts-now-playing.show { display: flex; }
+    .tts-now-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tts-wave { display: flex; gap: 2px; align-items: flex-end; height: 16px; }
+    .tts-wave span {
+      width: 3px; background: rgba(255,255,255,.8); border-radius: 2px;
+      animation: wave-bar .8s ease-in-out infinite;
+    }
+    .tts-wave span:nth-child(1){height:6px;animation-delay:0s}
+    .tts-wave span:nth-child(2){height:12px;animation-delay:.15s}
+    .tts-wave span:nth-child(3){height:8px;animation-delay:.3s}
+    .tts-wave span:nth-child(4){height:14px;animation-delay:.1s}
+    .tts-wave span:nth-child(5){height:5px;animation-delay:.25s}
+    @keyframes wave-bar { 0%,100%{transform:scaleY(1)} 50%{transform:scaleY(1.8)} }
+  </style>
 </head>
 <body>
-  
+
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
@@ -65,25 +396,15 @@
         <h1 class="hero-title">Temukan <em>Dunia</em> Dalam Setiap Halaman</h1>
         <p class="hero-subtitle">Lebih dari 10.000 koleksi buku tersedia untuk memperluas wawasan, menginspirasi kreativitas, dan mendukung perjalanan belajar Anda.</p>
         <div class="hero-cta d-flex flex-wrap gap-3 mt-4">
-          <a href="koleksi.html" class="btn btn-primary-custom">
-            <i class="bi bi-search me-2"></i>Cari Buku
-          </a>
-          <a href="keanggotaan.html" class="btn btn-outline-light-custom">
-            <i class="bi bi-person-plus me-2"></i>Daftar Anggota
-          </a>
+          <a href="koleksi.html" class="btn btn-primary-custom"><i class="bi bi-search me-2"></i>Cari Buku</a>
+          <a href="keanggotaan.html" class="btn btn-outline-light-custom"><i class="bi bi-person-plus me-2"></i>Daftar Anggota</a>
         </div>
       </div>
       <div class="col-lg-5 d-none d-lg-flex justify-content-center">
         <div class="hero-book-stack">
           <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80" alt="Books" class="hero-img-main">
-          <div class="floating-card card-1">
-            <i class="bi bi-book-fill text-accent"></i>
-            <span>10.000+ Koleksi</span>
-          </div>
-          <div class="floating-card card-2">
-            <i class="bi bi-people-fill text-accent"></i>
-            <span>2.500+ Anggota</span>
-          </div>
+          <div class="floating-card card-1"><i class="bi bi-book-fill text-accent"></i><span>10.000+ Koleksi</span></div>
+          <div class="floating-card card-2"><i class="bi bi-people-fill text-accent"></i><span>2.500+ Anggota</span></div>
         </div>
       </div>
     </div>
@@ -94,94 +415,277 @@
 </section>
 
 <!-- ===== SEARCH BAR ===== -->
-<section class="search-section py-4" style="background:#f8f7f2;">
+<section class="py-4" style="background:#f8f7f2;">
   <div class="container">
-    <div class="search-wrapper">
-      <div class="input-group search-bar shadow-sm">
-        <span class="input-group-text bg-white border-0 ps-3"><i class="bi bi-search text-muted"></i></span>
-        <input type="text" class="form-control border-0 py-3" id="searchInput" placeholder="Cari judul buku, penulis, atau kategori...">
-        <button class="btn btn-search px-4" onclick="goToSearch()">Cari</button>
-      </div>
-      <div class="quick-cats mt-3 d-flex flex-wrap gap-2">
-        <span class="cat-badge" onclick="goToCategory('pemrograman')">💻 Pemrograman</span>
-        <span class="cat-badge" onclick="goToCategory('bisnis')">📈 Bisnis</span>
-        <span class="cat-badge" onclick="goToCategory('pengembangan')">🌱 Pengembangan Diri</span>
-        <span class="cat-badge" onclick="goToCategory('fiksi')">📖 Fiksi</span>
-        <span class="cat-badge" onclick="goToCategory('database')">🗄️ Database</span>
-      </div>
+    <div class="input-group search-bar shadow-sm">
+      <span class="input-group-text bg-white border-0 ps-3"><i class="bi bi-search text-muted"></i></span>
+      <input type="text" class="form-control border-0 py-3" id="searchInput" placeholder="Cari judul buku, penulis, atau kategori...">
+      <button class="btn btn-search px-4" onclick="goToSearch()">Cari</button>
+    </div>
+    <div class="mt-3 d-flex flex-wrap gap-2">
+      <span class="cat-badge" onclick="goToCategory('pemrograman')">💻 Pemrograman</span>
+      <span class="cat-badge" onclick="goToCategory('bisnis')">📈 Bisnis</span>
+      <span class="cat-badge" onclick="goToCategory('pengembangan')">🌱 Pengembangan Diri</span>
+      <span class="cat-badge" onclick="goToCategory('fiksi')">📖 Fiksi</span>
+      <span class="cat-badge" onclick="goToCategory('database')">🗄️ Database</span>
     </div>
   </div>
 </section>
 
 <!-- ===== STATISTIK ===== -->
-<section class="stats-section py-5" style="background:#f8f7f2;">
+<section class="py-5" style="background:#f8f7f2;">
   <div class="container">
     <div class="row g-4 text-center">
-      <div class="col-6 col-md-3">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-journals"></i></div>
-          <div class="stat-number">10.450</div>
-          <div class="stat-label">Total Koleksi</div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-journals"></i></div><div class="stat-number">10.450</div><div class="stat-label">Total Koleksi</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div class="stat-number">2.580</div><div class="stat-label">Anggota Aktif</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div><div class="stat-number">24</div><div class="stat-label">Kategori Buku</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-icon"><i class="bi bi-arrow-left-right"></i></div><div class="stat-number">340</div><div class="stat-label">Peminjaman/Bulan</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TENTANG KAMI ===== -->
+<section class="py-5" id="about" style="background:#fff;">
+  <div class="container">
+    <span class="section-label">Siapa Kami</span>
+    <div class="d-flex align-items-center gap-2 mb-2">
+      <h2 class="section-title mb-0">Tentang <em>Jejak Pustaka</em></h2>
+      <button class="tts-heading-btn" onclick="ttsSpeak('tentang-kami')" title="Dengarkan bagian ini" data-tts-id="tentang-kami">
+        <i class="bi bi-play-fill"></i>
+      </button>
+    </div>
+    <div class="row g-5 align-items-center mt-1">
+      <div class="col-lg-6">
+        <p class="text-muted" style="line-height:1.9;" id="tts-about-p1">
+          Jejak Pustaka adalah perpustakaan umum yang berdiri sejak tahun 2010 di Medan, Sumatera Utara. Kami hadir sebagai ruang terbuka bagi siapa saja yang ingin belajar, membaca, dan berkembang melalui kekuatan literasi.
+        </p>
+        <p class="text-muted" style="line-height:1.9;" id="tts-about-p2">
+          Dengan lebih dari 10.000 koleksi buku dari berbagai bidang ilmu, kami berkomitmen menjadi jembatan antara masyarakat dan dunia pengetahuan yang luas — dari anak-anak hingga para profesional.
+        </p>
+        <div class="row g-3 mt-2">
+          <div class="col-6">
+            <div class="about-value-card">
+              <i class="bi bi-book-open text-accent fs-4 mb-2 d-block"></i>
+              <h6>Literasi untuk Semua</h6>
+              <p class="text-muted small mb-0">Akses pengetahuan tanpa batas untuk seluruh lapisan masyarakat.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="about-value-card">
+              <i class="bi bi-people text-accent fs-4 mb-2 d-block"></i>
+              <h6>Komunitas Pembaca</h6>
+              <p class="text-muted small mb-0">Membangun ekosistem baca yang aktif dan saling mendukung.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="about-value-card">
+              <i class="bi bi-laptop text-accent fs-4 mb-2 d-block"></i>
+              <h6>Inovasi Digital</h6>
+              <p class="text-muted small mb-0">Menghadirkan perpustakaan digital untuk era modern.</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="about-value-card">
+              <i class="bi bi-heart text-accent fs-4 mb-2 d-block"></i>
+              <h6>Pelayanan Tulus</h6>
+              <p class="text-muted small mb-0">Pustakawan berdedikasi siap membantu setiap pengunjung.</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
-          <div class="stat-number">2.580</div>
-          <div class="stat-label">Anggota Aktif</div>
+      <div class="col-lg-6">
+        <div class="about-img-wrap">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=600&q=80" alt="Interior Perpustakaan" class="rounded-4 w-100" style="height:360px;object-fit:cover;">
+          <div class="about-float-card">
+            <div class="about-mini-stat"><span class="num">14+</span><small>Tahun Berdiri</small></div>
+            <div class="vr"></div>
+            <div class="about-mini-stat"><span class="num">2.580</span><small>Anggota</small></div>
+            <div class="vr"></div>
+            <div class="about-mini-stat"><span class="num">10K+</span><small>Koleksi</small></div>
+          </div>
         </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div>
-          <div class="stat-number">24</div>
-          <div class="stat-label">Kategori Buku</div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card">
-          <div class="stat-icon"><i class="bi bi-arrow-left-right"></i></div>
-          <div class="stat-number">340</div>
-          <div class="stat-label">Peminjaman/Bulan</div>
+        <div class="row g-3 mt-4">
+          <div class="col-4">
+            <div class="team-mini-card text-center">
+              <div class="team-avatar mx-auto mb-2">DR</div>
+              <h6 class="small fw-bold mb-0">Drs. Rahmat H.</h6>
+              <p class="text-muted mb-0" style="font-size:.73rem;">Kepala Perpustakaan</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="team-mini-card text-center">
+              <div class="team-avatar mx-auto mb-2">SR</div>
+              <h6 class="small fw-bold mb-0">Sri Rahayu, S.IP</h6>
+              <p class="text-muted mb-0" style="font-size:.73rem;">Pustakawan Utama</p>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="team-mini-card text-center">
+              <div class="team-avatar mx-auto mb-2">AF</div>
+              <h6 class="small fw-bold mb-0">Ahmad Fauzi</h6>
+              <p class="text-muted mb-0" style="font-size:.73rem;">Koordinator Digital</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== BUKU TERBARU ===== -->
-<section class="py-5 section-books" style="background:#fff;">
+<!-- ===== KALKULATOR ===== -->
+<section class="py-5" id="kalkulator" style="background:#f8f7f2;">
+  <div class="container">
+    <span class="section-label">Fitur Layanan</span>
+    <div class="d-flex align-items-center gap-2 mb-4">
+      <h2 class="section-title mb-0">Kalkulator <em>Perpustakaan</em></h2>
+      <button class="tts-heading-btn" onclick="ttsSpeak('kalkulator')" title="Dengarkan bagian ini" data-tts-id="kalkulator">
+        <i class="bi bi-play-fill"></i>
+      </button>
+    </div>
+    <div class="calc-box">
+      <div class="calc-header d-flex align-items-center gap-3">
+        <i class="bi bi-calculator-fill fs-3"></i>
+        <div>
+          <h5 class="mb-0 fw-bold" style="font-family:'Nunito',sans-serif;">Kalkulator Layanan Perpustakaan</h5>
+          <small class="opacity-75">Hitung denda keterlambatan, jatuh tempo & kuota buku</small>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          <button class="calc-tab active" onclick="switchCalcTab('denda',this)">Denda Keterlambatan</button>
+          <button class="calc-tab" onclick="switchCalcTab('durasi',this)">Durasi Peminjaman</button>
+          <button class="calc-tab" onclick="switchCalcTab('kuota',this)">Kuota Buku</button>
+        </div>
+
+        <!-- Denda -->
+        <div id="calc-denda">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Tanggal Peminjaman</label>
+              <input type="date" id="c-pinjam" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Tanggal Pengembalian Aktual</label>
+              <input type="date" id="c-kembali" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Jumlah Buku</label>
+              <input type="number" id="c-buku" class="form-control" value="1" min="1" max="5">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Jenis Anggota</label>
+              <select id="c-jenis" class="form-select">
+                <option value="1000">Umum (Rp 1.000/hari/buku)</option>
+                <option value="500">Pelajar/Mahasiswa (Rp 500/hari/buku)</option>
+                <option value="0">Premium (Gratis)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary-custom mt-3 w-100" onclick="hitungDendaLib()">
+            <i class="bi bi-calculator me-2"></i>Hitung Denda
+          </button>
+          <div id="calc-res-denda" class="calc-result mt-3 d-none">
+            <div class="calc-res-item"><div class="calc-res-val" id="cr-terlambat">-</div><div class="calc-res-lbl">Hari Terlambat</div></div>
+            <div class="calc-res-item danger"><div class="calc-res-val" id="cr-denda">-</div><div class="calc-res-lbl">Total Denda</div></div>
+            <div class="calc-res-item"><div class="calc-res-val" id="cr-perbuku">-</div><div class="calc-res-lbl">Denda/Buku</div></div>
+          </div>
+          <div class="calc-note mt-3"><i class="bi bi-info-circle me-1 text-accent"></i>Batas peminjaman <strong>14 hari</strong>. Denda dihitung mulai hari ke-15.</div>
+        </div>
+
+        <!-- Durasi -->
+        <div id="calc-durasi" class="d-none">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Tanggal Pinjam</label>
+              <input type="date" id="dur-pinjam" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Lama Peminjaman</label>
+              <select id="dur-lama" class="form-select">
+                <option value="7">7 hari</option>
+                <option value="14" selected>14 hari (standar)</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary-custom mt-3 w-100" onclick="hitungDurasiLib()">
+            <i class="bi bi-calendar-check me-2"></i>Hitung Jatuh Tempo
+          </button>
+          <div id="calc-res-durasi" class="calc-result mt-3 d-none">
+            <div class="calc-res-item"><div class="calc-res-val" id="dr-jatuh">-</div><div class="calc-res-lbl">Jatuh Tempo</div></div>
+            <div class="calc-res-item"><div class="calc-res-val" id="dr-sisa">-</div><div class="calc-res-lbl">Sisa Hari</div></div>
+            <div class="calc-res-item"><div class="calc-res-val" id="dr-status">-</div><div class="calc-res-lbl">Status</div></div>
+          </div>
+          <div class="calc-note mt-3"><i class="bi bi-info-circle me-1 text-accent"></i>Perpanjangan dapat dilakukan 1x secara online sebelum jatuh tempo.</div>
+        </div>
+
+        <!-- Kuota -->
+        <div id="calc-kuota" class="d-none">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Jenis Keanggotaan</label>
+              <select id="k-jenis" class="form-select" onchange="updateKuotaLib()">
+                <option value="biasa">Anggota Biasa (maks. 3 buku)</option>
+                <option value="pelajar">Pelajar/Mahasiswa (maks. 5 buku)</option>
+                <option value="premium">Anggota Premium (maks. 10 buku)</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small fw-semibold">Buku Sedang Dipinjam</label>
+              <input type="number" id="k-dipinjam" class="form-control" value="0" min="0" oninput="updateKuotaLib()">
+            </div>
+          </div>
+          <div id="calc-res-kuota" class="calc-result mt-3">
+            <div class="calc-res-item"><div class="calc-res-val" id="kr-maks">3</div><div class="calc-res-lbl">Maks. Buku</div></div>
+            <div class="calc-res-item"><div class="calc-res-val" id="kr-sisa">3</div><div class="calc-res-lbl">Sisa Kuota</div></div>
+            <div class="calc-res-item"><div class="calc-res-val" id="kr-durasi">14 hr</div><div class="calc-res-lbl">Durasi Pinjam</div></div>
+          </div>
+          <div class="calc-note mt-3" id="k-note-lib"><i class="bi bi-info-circle me-1 text-accent"></i>Anggota Biasa: maks. 3 buku, 14 hari, denda Rp 1.000/hari.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUKU POPULER ===== -->
+<section class="py-5" id="buku-populer" style="background:#fff;">
   <div class="container">
     <div class="section-header d-flex justify-content-between align-items-end mb-4">
       <div>
         <span class="section-label">Koleksi Kami</span>
-        <h2 class="section-title">Buku <em>Populer</em> Pilihan</h2>
+        <div class="d-flex align-items-center gap-2">
+          <h2 class="section-title mb-0">Buku <em>Populer</em> Pilihan</h2>
+          <button class="tts-heading-btn" onclick="ttsSpeak('buku-populer')" title="Dengarkan bagian ini" data-tts-id="buku-populer">
+            <i class="bi bi-play-fill"></i>
+          </button>
+        </div>
       </div>
       <a href="koleksi.html" class="btn btn-link-custom">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
     </div>
-
-    <!-- Filter Tabs -->
-    <div class="filter-tabs mb-4 d-flex flex-wrap gap-2">
-      <button class="filter-btn active" onclick="filterBuku('all', this)">Semua</button>
-      <button class="filter-btn" onclick="filterBuku('pemrograman', this)">Pemrograman</button>
-      <button class="filter-btn" onclick="filterBuku('database', this)">Database</button>
-      <button class="filter-btn" onclick="filterBuku('pengembangan', this)">Pengembangan Diri</button>
-      <button class="filter-btn" onclick="filterBuku('bisnis', this)">Bisnis</button>
-      <button class="filter-btn" onclick="filterBuku('fiksi', this)">Fiksi</button>
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <button class="filter-btn active" onclick="filterBuku('all',this)">Semua</button>
+      <button class="filter-btn" onclick="filterBuku('pemrograman',this)">Pemrograman</button>
+      <button class="filter-btn" onclick="filterBuku('database',this)">Database</button>
+      <button class="filter-btn" onclick="filterBuku('pengembangan',this)">Pengembangan Diri</button>
+      <button class="filter-btn" onclick="filterBuku('bisnis',this)">Bisnis</button>
+      <button class="filter-btn" onclick="filterBuku('fiksi',this)">Fiksi</button>
     </div>
-
     <div class="row g-4" id="bookList">
-      <div class="col-12 text-center py-5"><div class="spinner-border text-accent" role="status"></div></div>
+      <div class="col-12 text-center py-5"><div class="spinner-border text-warning" role="status"></div></div>
     </div>
   </div>
 </section>
 
 <!-- ===== LAYANAN ===== -->
-<section class="services-section py-5">
+<section class="services-section py-5" id="layanan">
   <div class="container">
     <div class="text-center mb-5">
       <span class="section-label">Apa yang Kami Tawarkan</span>
-      <h2 class="section-title">Layanan <em>Perpustakaan</em></h2>
+      <div class="d-flex align-items-center justify-content-center gap-2">
+        <h2 class="section-title mb-0">Layanan <em>Perpustakaan</em></h2>
+        <button class="tts-heading-btn" onclick="ttsSpeak('layanan')" title="Dengarkan bagian ini" data-tts-id="layanan">
+          <i class="bi bi-play-fill"></i>
+        </button>
+      </div>
     </div>
     <div class="row g-4">
       <div class="col-md-6 col-lg-3">
@@ -236,13 +740,18 @@
   </div>
 </section>
 
-<!-- ===== KEGIATAN / EVENT ===== -->
+<!-- ===== KEGIATAN ===== -->
 <section class="py-5" id="event" style="background:#f8f7f2;">
   <div class="container">
     <div class="section-header d-flex justify-content-between align-items-end mb-4">
       <div>
         <span class="section-label">Agenda</span>
-        <h2 class="section-title">Kegiatan <em>Perpustakaan</em></h2>
+        <div class="d-flex align-items-center gap-2">
+          <h2 class="section-title mb-0">Kegiatan <em>Perpustakaan</em></h2>
+          <button class="tts-heading-btn" onclick="ttsSpeak('kegiatan')" title="Dengarkan bagian ini" data-tts-id="kegiatan">
+            <i class="bi bi-play-fill"></i>
+          </button>
+        </div>
       </div>
       <a href="#" class="btn btn-link-custom">Lihat Semua <i class="bi bi-arrow-right ms-1"></i></a>
     </div>
@@ -294,37 +803,30 @@
 </section>
 
 <!-- ===== JAM OPERASIONAL ===== -->
-<section class="py-5" style="background:#fff;">
+<section class="py-5" id="jam-operasional" style="background:#fff;">
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-5">
         <span class="section-label">Kunjungi Kami</span>
-        <h2 class="section-title">Jam <em>Operasional</em></h2>
-        <p class="text-muted mt-3">Kami hadir untuk melayani kebutuhan literasi Anda setiap hari. Datang dan rasakan kenyamanan membaca di perpustakaan kami.</p>
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <h2 class="section-title mb-0">Jam <em>Operasional</em></h2>
+          <button class="tts-heading-btn" onclick="ttsSpeak('jam-operasional')" title="Dengarkan bagian ini" data-tts-id="jam-operasional">
+            <i class="bi bi-play-fill"></i>
+          </button>
+        </div>
+        <p class="text-muted">Kami hadir untuk melayani kebutuhan literasi Anda setiap hari. Datang dan rasakan kenyamanan membaca di perpustakaan kami.</p>
         <div class="hour-table mt-4">
-          <div class="hour-row">
-            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Senin – Jumat</span>
-            <span class="fw-semibold">08.00 – 20.00</span>
-          </div>
-          <div class="hour-row">
-            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Sabtu</span>
-            <span class="fw-semibold">09.00 – 17.00</span>
-          </div>
-          <div class="hour-row">
-            <span><i class="bi bi-calendar-week me-2 text-accent"></i>Minggu</span>
-            <span class="fw-semibold">10.00 – 15.00</span>
-          </div>
-          <div class="hour-row closed">
-            <span><i class="bi bi-x-circle me-2"></i>Hari Libur Nasional</span>
-            <span class="fw-semibold">Tutup</span>
-          </div>
+          <div class="hour-row"><span><i class="bi bi-calendar-week me-2 text-accent"></i>Senin – Jumat</span><span class="fw-semibold">08.00 – 20.00</span></div>
+          <div class="hour-row"><span><i class="bi bi-calendar-week me-2 text-accent"></i>Sabtu</span><span class="fw-semibold">09.00 – 17.00</span></div>
+          <div class="hour-row"><span><i class="bi bi-calendar-week me-2 text-accent"></i>Minggu</span><span class="fw-semibold">10.00 – 15.00</span></div>
+          <div class="hour-row closed"><span><i class="bi bi-x-circle me-2"></i>Hari Libur Nasional</span><span class="fw-semibold">Tutup</span></div>
         </div>
         <div class="mt-4">
           <a href="kontak.html" class="btn btn-primary-custom"><i class="bi bi-geo-alt me-2"></i>Lihat Lokasi</a>
         </div>
       </div>
       <div class="col-lg-7">
-        <div class="map-placeholder rounded-4 overflow-hidden shadow">
+        <div class="rounded-4 overflow-hidden shadow">
           <img src="https://images.unsplash.com/photo-1568667256549-094345857637?w=700&q=80" alt="Perpustakaan" class="w-100" style="height:380px;object-fit:cover;">
         </div>
       </div>
@@ -370,18 +872,16 @@
       <div class="col-lg-4">
         <h6 class="footer-heading">Hubungi Kami</h6>
         <ul class="footer-contact">
-          <li><i class="bi bi-geo-alt-fill text-accent"></i> Jl. Pustaka Raya No. 1, Medan, Sumatera Utara</li>
-          <li><i class="bi bi-telephone-fill text-accent"></i> (061) 123-4567</li>
-          <li><i class="bi bi-envelope-fill text-accent"></i> info@jejakpustaka.id</li>
-          <li><i class="bi bi-clock-fill text-accent"></i> Senin–Jumat: 08.00–20.00</li>
+          <li><i class="bi bi-geo-alt-fill text-accent"></i>Jl. Pustaka Raya No. 1, Medan, Sumatera Utara</li>
+          <li><i class="bi bi-telephone-fill text-accent"></i>(061) 123-4567</li>
+          <li><i class="bi bi-envelope-fill text-accent"></i>info@jejakpustaka.id</li>
+          <li><i class="bi bi-clock-fill text-accent"></i>Senin–Jumat: 08.00–20.00</li>
         </ul>
       </div>
     </div>
     <hr class="footer-divider mt-5">
     <div class="row align-items-center">
-      <div class="col-md-6 text-muted-footer small">
-        © 2026 Jejak Pustaka. Hak cipta dilindungi.
-      </div>
+      <div class="col-md-6 text-muted-footer small">© 2026 Jejak Pustaka. Hak cipta dilindungi.</div>
       <div class="col-md-6 text-md-end text-muted-footer small">
         <a href="#" class="footer-bottom-link">Kebijakan Privasi</a> &nbsp;|&nbsp;
         <a href="#" class="footer-bottom-link">Syarat & Ketentuan</a>
@@ -433,7 +933,7 @@
       <div class="modal-body p-4 pt-0">
         <div class="row g-4">
           <div class="col-md-4 text-center">
-            <img id="modalCover" class="rounded-3 shadow" style="max-height:260px;width:100%;object-fit:cover;">
+            <img id="modalCover" class="rounded-3 shadow" style="max-height:260px;width:100%;object-fit:cover;" alt="Cover Buku">
             <div id="modalStatus" class="mt-3"></div>
           </div>
           <div class="col-md-8">
@@ -454,25 +954,69 @@
   </div>
 </div>
 
+<!-- ===== TTS BUBBLE WIDGET ===== -->
+<button class="tts-bubble-btn" id="ttsBubbleBtn" onclick="toggleTtsPanel()" title="Aksesibilitas: Text to Speech" aria-label="Buka panel text to speech">
+  <i class="bi bi-headphones"></i>
+  <span class="tts-badge" id="ttsBadge" style="display:none;">▶</span>
+</button>
+
+<div class="tts-panel" id="ttsPanel">
+  <div class="tts-panel-header">
+    <div>
+      <h6><i class="bi bi-universal-access me-2"></i>Aksesibilitas — Text to Speech</h6>
+      <small>Pilih bagian yang ingin didengarkan</small>
+    </div>
+    <button class="tts-close-btn" onclick="toggleTtsPanel()"><i class="bi bi-x-lg"></i></button>
+  </div>
+
+  <div class="tts-now-playing" id="ttsNowPlaying">
+    <div class="tts-wave"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="tts-now-text" id="ttsNowText">Sedang memutar...</div>
+    <button onclick="ttsStop()" style="background:none;border:none;color:#fff;cursor:pointer;font-size:.85rem;"><i class="bi bi-stop-fill"></i></button>
+  </div>
+
+  <div class="tts-controls">
+    <div class="tts-speed-row">
+      <i class="bi bi-speedometer2"></i>
+      <span>Kecepatan:</span>
+      <input type="range" id="ttsSpeed" min="0.5" max="2" step="0.1" value="1" oninput="updateSpeedLabel()">
+      <span id="ttsSpeedLabel" style="min-width:28px;font-weight:600;color:var(--accent);">1×</span>
+    </div>
+  </div>
+
+  <div class="tts-content-list" id="ttsContentList">
+    <!-- Diisi oleh JS -->
+  </div>
+
+  <div class="tts-footer">
+    <button class="tts-footer-btn" onclick="ttsPlayAll()"><i class="bi bi-play-fill"></i> Putar Semua</button>
+    <button class="tts-footer-btn stop-btn" onclick="ttsStop()"><i class="bi bi-stop-fill"></i> Berhenti</button>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// ===== DATA =====
+// ===== BUKU DATA =====
 let semuaBuku = [];
 let kategoriAktif = 'all';
 let selectedBook = null;
 
 fetch('./data.json')
   .then(r => r.json())
-  .then(data => {
-    semuaBuku = data;
-    tampilkanBuku();
-  })
+  .then(data => { semuaBuku = data; tampilkanBuku(); })
   .catch(() => {
-    document.getElementById('bookList').innerHTML = `
-      <div class="col-12 text-center text-muted py-4">
-        <i class="bi bi-exclamation-circle fs-3"></i>
-        <p class="mt-2">Gagal memuat data buku.</p>
-      </div>`;
+    // Fallback data jika data.json tidak ada
+    semuaBuku = [
+      {id:1,judul:"Belajar Python untuk Pemula",penulis:"Andi Wijaya",kategori:"pemrograman",tahun:2023,tersedia:true,cover:"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=300&q=80",deskripsi:"Panduan lengkap belajar pemrograman Python dari dasar hingga mahir."},
+      {id:2,judul:"Database Relasional MySQL",penulis:"Siti Nurhaliza",kategori:"database",tahun:2022,tersedia:false,cover:"https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=300&q=80",deskripsi:"Pengantar database relasional menggunakan MySQL dengan contoh kasus nyata."},
+      {id:3,judul:"Atomic Habits",penulis:"James Clear",kategori:"pengembangan",tahun:2021,tersedia:true,cover:"https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&q=80",deskripsi:"Cara membangun kebiasaan baik dan menghilangkan kebiasaan buruk secara efektif."},
+      {id:4,judul:"Strategi Bisnis Digital",penulis:"Budi Santoso",kategori:"bisnis",tahun:2023,tersedia:true,cover:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",deskripsi:"Strategi membangun dan mengembangkan bisnis di era digital."},
+      {id:5,judul:"Laskar Pelangi",penulis:"Andrea Hirata",kategori:"fiksi",tahun:2005,tersedia:true,cover:"https://images.unsplash.com/photo-1476275466078-4cdc24f83f2f?w=300&q=80",deskripsi:"Novel inspiratif tentang semangat belajar anak-anak di Belitung."},
+      {id:6,judul:"JavaScript Modern",penulis:"Rizky Pratama",kategori:"pemrograman",tahun:2024,tersedia:false,cover:"https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=300&q=80",deskripsi:"Panduan JavaScript ES6+ dan framework modern untuk pengembangan web."},
+      {id:7,judul:"Rich Dad Poor Dad",penulis:"Robert Kiyosaki",kategori:"bisnis",tahun:2020,tersedia:true,cover:"https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=300&q=80",deskripsi:"Pelajaran finansial dari dua sosok ayah dengan sudut pandang berbeda."},
+      {id:8,judul:"MongoDB untuk Developer",penulis:"Dewi Kartika",kategori:"database",tahun:2023,tersedia:true,cover:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=300&q=80",deskripsi:"Panduan lengkap MongoDB NoSQL database untuk aplikasi modern."}
+    ];
+    tampilkanBuku();
   });
 
 function tampilkanBuku() {
@@ -483,13 +1027,11 @@ function tampilkanBuku() {
     const matchKat = kategoriAktif === 'all' || b.kategori === kategoriAktif;
     return matchSearch && matchKat;
   });
-
   if (filtered.length === 0) {
     list.innerHTML = `<div class="col-12 text-center text-muted py-5"><i class="bi bi-search fs-2"></i><p class="mt-2">Buku tidak ditemukan.</p></div>`;
     return;
   }
-
-  const html = filtered.slice(0, 8).map(b => `
+  list.innerHTML = filtered.slice(0,8).map(b => `
     <div class="col-6 col-md-4 col-lg-3">
       <div class="book-card" onclick="lihatDetail(${b.id})">
         <div class="book-cover-wrap">
@@ -504,7 +1046,6 @@ function tampilkanBuku() {
         </div>
       </div>
     </div>`).join('');
-  list.innerHTML = html;
 }
 
 function filterBuku(kat, btn) {
@@ -536,10 +1077,7 @@ function pinjamBuku() {
   alert(`Permintaan peminjaman "${selectedBook.judul}" berhasil dikirim!\nSilakan kunjungi meja layanan untuk konfirmasi.`);
 }
 
-function toggleLoginModal(e) {
-  e.preventDefault();
-  new bootstrap.Modal(document.getElementById('loginModal')).show();
-}
+function toggleLoginModal(e) { e.preventDefault(); new bootstrap.Modal(document.getElementById('loginModal')).show(); }
 
 function doLogin() {
   const u = document.getElementById('loginUser').value;
@@ -549,32 +1087,280 @@ function doLogin() {
     err.classList.add('d-none');
     bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
     alert('Login berhasil! Selamat datang, ' + u);
-  } else {
-    err.classList.remove('d-none');
-  }
+  } else { err.classList.remove('d-none'); }
 }
 
 function goToSearch() {
   const q = document.getElementById('searchInput').value;
   if (q) window.location.href = `koleksi.html?q=${encodeURIComponent(q)}`;
 }
+function goToCategory(kat) { window.location.href = `koleksi.html?kategori=${kat}`; }
 
-function goToCategory(kat) {
-  window.location.href = `koleksi.html?kategori=${kat}`;
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('searchInput')?.addEventListener('keypress', e => { if(e.key==='Enter') goToSearch(); });
+  initCalc();
+  initTTS();
+});
+
+// ===== KALKULATOR =====
+function initCalc() {
+  const t = new Date().toISOString().split('T')[0];
+  ['c-pinjam','c-kembali','dur-pinjam'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = t;
+  });
 }
 
-// Navbar scroll effect
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('mainNav');
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-});
-
-// Enter key search
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('searchInput')?.addEventListener('keypress', e => {
-    if (e.key === 'Enter') goToSearch();
+function switchCalcTab(name, btn) {
+  ['denda','durasi','kuota'].forEach(t => {
+    document.getElementById('calc-'+t)?.classList.add('d-none');
   });
-});
+  document.getElementById('calc-'+name)?.classList.remove('d-none');
+  document.querySelectorAll('.calc-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function hitungDendaLib() {
+  const p = new Date(document.getElementById('c-pinjam').value);
+  const k = new Date(document.getElementById('c-kembali').value);
+  const buku = parseInt(document.getElementById('c-buku').value) || 1;
+  const tarif = parseInt(document.getElementById('c-jenis').value);
+  const selisih = Math.floor((k - p) / 86400000);
+  const terlambat = Math.max(0, selisih - 14);
+  document.getElementById('cr-terlambat').textContent = terlambat + ' hari';
+  document.getElementById('cr-denda').textContent = 'Rp ' + (terlambat*tarif*buku).toLocaleString('id-ID');
+  document.getElementById('cr-perbuku').textContent = 'Rp ' + (terlambat*tarif).toLocaleString('id-ID');
+  document.getElementById('calc-res-denda').classList.remove('d-none');
+}
+
+function hitungDurasiLib() {
+  const p = new Date(document.getElementById('dur-pinjam').value);
+  const lama = parseInt(document.getElementById('dur-lama').value);
+  const jatuh = new Date(p);
+  jatuh.setDate(jatuh.getDate() + lama);
+  const sisa = Math.ceil((jatuh - new Date()) / 86400000);
+  document.getElementById('dr-jatuh').textContent = jatuh.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+  document.getElementById('dr-sisa').textContent = Math.abs(sisa) + ' hari';
+  const st = document.getElementById('dr-status');
+  if (sisa > 3) { st.textContent = 'Aman'; st.style.color = '#198754'; }
+  else if (sisa > 0) { st.textContent = 'Segera'; st.style.color = '#fd7e14'; }
+  else { st.textContent = 'Terlambat'; st.style.color = '#dc3545'; }
+  document.getElementById('calc-res-durasi').classList.remove('d-none');
+}
+
+const kuotaLib = {
+  biasa:  { maks:3,  dur:'14 hr', note:'Anggota Biasa: maks. 3 buku, 14 hari, denda Rp 1.000/hari.' },
+  pelajar:{ maks:5,  dur:'14 hr', note:'Pelajar/Mahasiswa: maks. 5 buku, 14 hari, denda Rp 500/hari.' },
+  premium:{ maks:10, dur:'21 hr', note:'Anggota Premium: maks. 10 buku, 21 hari, bebas denda.' }
+};
+function updateKuotaLib() {
+  const d = kuotaLib[document.getElementById('k-jenis').value];
+  const dipinjam = parseInt(document.getElementById('k-dipinjam').value) || 0;
+  const sisa = Math.max(0, d.maks - dipinjam);
+  document.getElementById('kr-maks').textContent = d.maks;
+  document.getElementById('kr-sisa').textContent = sisa;
+  document.getElementById('kr-sisa').style.color = sisa > 0 ? 'var(--accent)' : '#dc3545';
+  document.getElementById('kr-durasi').textContent = d.dur;
+  document.getElementById('k-note-lib').innerHTML = '<i class="bi bi-info-circle me-1 text-accent"></i>' + d.note;
+}
+
+// ===== TEXT TO SPEECH ENGINE =====
+const ttsContent = [
+  {
+    id: 'hero',
+    label: 'Selamat Datang — Hero',
+    sub: 'Tagline utama perpustakaan',
+    text: 'Selamat datang di Jejak Pustaka. Temukan dunia dalam setiap halaman. Lebih dari 10.000 koleksi buku tersedia untuk memperluas wawasan, menginspirasi kreativitas, dan mendukung perjalanan belajar Anda.'
+  },
+  {
+    id: 'statistik',
+    label: 'Statistik Perpustakaan',
+    sub: 'Data koleksi, anggota & kegiatan',
+    text: 'Jejak Pustaka memiliki 10.450 total koleksi buku, dengan 2.580 anggota aktif, 24 kategori buku, dan rata-rata 340 peminjaman setiap bulannya.'
+  },
+  {
+    id: 'tentang-kami',
+    label: 'Tentang Kami',
+    sub: 'Sejarah & nilai-nilai perpustakaan',
+    text: 'Jejak Pustaka adalah perpustakaan umum yang berdiri sejak tahun 2010 di Medan, Sumatera Utara. Kami hadir sebagai ruang terbuka bagi siapa saja yang ingin belajar, membaca, dan berkembang melalui kekuatan literasi. Dengan lebih dari 10.000 koleksi buku dari berbagai bidang ilmu, kami berkomitmen menjadi jembatan antara masyarakat dan dunia pengetahuan yang luas. Nilai kami meliputi: Literasi untuk Semua, Komunitas Pembaca, Inovasi Digital, dan Pelayanan Tulus.'
+  },
+  {
+    id: 'kalkulator',
+    label: 'Kalkulator Perpustakaan',
+    sub: 'Fitur hitung denda & peminjaman',
+    text: 'Fitur kalkulator perpustakaan tersedia untuk membantu Anda. Tersedia tiga fungsi: Pertama, Kalkulator Denda Keterlambatan untuk menghitung denda berdasarkan tanggal peminjaman dan pengembalian. Kedua, Kalkulator Durasi Peminjaman untuk mengetahui jatuh tempo buku Anda. Ketiga, Kalkulator Kuota Buku untuk mengetahui sisa kuota peminjaman berdasarkan jenis keanggotaan. Batas peminjaman standar adalah 14 hari.'
+  },
+  {
+    id: 'buku-populer',
+    label: 'Buku Populer Pilihan',
+    sub: 'Koleksi unggulan perpustakaan',
+    text: 'Berikut adalah buku-buku populer pilihan dari koleksi Jejak Pustaka. Tersedia berbagai kategori termasuk Pemrograman, Database, Pengembangan Diri, Bisnis, dan Fiksi. Klik pada buku untuk melihat detail dan melakukan peminjaman.'
+  },
+  {
+    id: 'layanan',
+    label: 'Layanan Perpustakaan',
+    sub: 'Peminjaman, digital, referensi & anggota',
+    text: 'Jejak Pustaka menyediakan empat layanan utama. Pertama, Peminjaman Buku: pinjam buku favorit Anda hingga 2 minggu dengan kemudahan perpanjangan online. Kedua, Perpustakaan Digital: akses ribuan e-book, jurnal, dan artikel ilmiah dari mana saja kapan saja. Ketiga, Layanan Referensi: pustakawan kami siap membantu menemukan sumber informasi yang tepat. Keempat, Keanggotaan: daftar sebagai anggota dan nikmati berbagai keuntungan eksklusif.'
+  },
+  {
+    id: 'kegiatan',
+    label: 'Kegiatan Perpustakaan',
+    sub: 'Agenda & event mendatang',
+    text: 'Ada tiga kegiatan mendatang di Jejak Pustaka. Pertama, Festival Literasi Nasional 2026 pada tanggal 15 Juni 2026: perayaan minat baca masyarakat dengan pameran buku, talkshow, dan lomba literasi. Kedua, Workshop Perpustakaan Digital pada tanggal 22 Juni 2026: pelatihan penggunaan sistem perpustakaan digital untuk pelajar dan mahasiswa. Ketiga, Bedah Buku Bersama Penulis pada tanggal 5 Juli 2026: diskusi mendalam buku pilihan bersama penulis nasional.'
+  },
+  {
+    id: 'jam-operasional',
+    label: 'Jam Operasional',
+    sub: 'Waktu buka & lokasi',
+    text: 'Jam operasional Jejak Pustaka adalah sebagai berikut. Senin hingga Jumat: pukul 08.00 hingga 20.00. Sabtu: pukul 09.00 hingga 17.00. Minggu: pukul 10.00 hingga 15.00. Hari libur nasional: tutup. Kami berlokasi di Jalan Pustaka Raya Nomor 1, Medan, Sumatera Utara. Hubungi kami di nomor 061 123 4567 atau email info@jejakpustaka.id.'
+  }
+];
+
+let ttsCurrentIdx = -1;
+let ttsUtterance = null;
+let ttsPanelOpen = false;
+
+function initTTS() {
+  const list = document.getElementById('ttsContentList');
+  list.innerHTML = ttsContent.map((item, i) => `
+    <div class="tts-item" id="tts-list-item-${i}" onclick="ttsPlayItem(${i})">
+      <div class="tts-item-icon"><i class="bi bi-play-fill"></i></div>
+      <div class="tts-item-text">
+        <span class="tts-item-label">${item.label}</span>
+        <span class="tts-item-sub">${item.sub}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleTtsPanel() {
+  const panel = document.getElementById('ttsPanel');
+  const btn = document.getElementById('ttsBubbleBtn');
+  ttsPanelOpen = !ttsPanelOpen;
+  panel.classList.toggle('show', ttsPanelOpen);
+  btn.classList.toggle('active', ttsPanelOpen);
+}
+
+function ttsPlayItem(idx) {
+  if (!window.speechSynthesis) { alert('Browser Anda tidak mendukung fitur Text to Speech.'); return; }
+  ttsStop();
+  ttsCurrentIdx = idx;
+  const item = ttsContent[idx];
+  const speed = parseFloat(document.getElementById('ttsSpeed').value) || 1;
+
+  // Update UI list
+  document.querySelectorAll('.tts-item').forEach((el, i) => {
+    el.classList.toggle('playing', i === idx);
+    el.querySelector('.tts-item-icon').innerHTML = i === idx
+      ? '<i class="bi bi-pause-fill"></i>'
+      : '<i class="bi bi-play-fill"></i>';
+  });
+
+  // Update now playing bar
+  const np = document.getElementById('ttsNowPlaying');
+  np.classList.add('show');
+  document.getElementById('ttsNowText').textContent = item.label;
+
+  // Update bubble badge
+  document.getElementById('ttsBadge').style.display = 'flex';
+
+  // Update heading buttons
+  document.querySelectorAll('.tts-heading-btn').forEach(b => {
+    const isThis = b.dataset.ttsId === item.id;
+    b.classList.toggle('playing', isThis);
+    b.innerHTML = isThis ? '<i class="bi bi-pause-fill"></i>' : '<i class="bi bi-play-fill"></i>';
+  });
+
+  ttsUtterance = new SpeechSynthesisUtterance(item.text);
+  ttsUtterance.lang = 'id-ID';
+  ttsUtterance.rate = speed;
+  ttsUtterance.pitch = 1;
+  ttsUtterance.volume = 1;
+
+  ttsUtterance.onend = () => {
+    ttsResetItem(idx);
+    // Auto-advance
+    if (ttsCurrentIdx < ttsContent.length - 1) {
+      setTimeout(() => ttsPlayItem(ttsCurrentIdx + 1), 600);
+    } else {
+      ttsFullReset();
+    }
+  };
+  ttsUtterance.onerror = () => ttsFullReset();
+
+  window.speechSynthesis.speak(ttsUtterance);
+}
+
+function ttsResetItem(idx) {
+  const el = document.getElementById(`tts-list-item-${idx}`);
+  if (el) {
+    el.classList.remove('playing');
+    el.querySelector('.tts-item-icon').innerHTML = '<i class="bi bi-play-fill"></i>';
+  }
+}
+
+function ttsFullReset() {
+  document.querySelectorAll('.tts-item').forEach(el => {
+    el.classList.remove('playing');
+    el.querySelector('.tts-item-icon').innerHTML = '<i class="bi bi-play-fill"></i>';
+  });
+  document.getElementById('ttsNowPlaying').classList.remove('show');
+  document.getElementById('ttsBadge').style.display = 'none';
+  document.querySelectorAll('.tts-heading-btn').forEach(b => {
+    b.classList.remove('playing');
+    b.innerHTML = '<i class="bi bi-play-fill"></i>';
+  });
+  document.getElementById('ttsBubbleBtn').classList.remove('active');
+  if (ttsPanelOpen) {
+    document.getElementById('ttsBubbleBtn').classList.add('active');
+  }
+  ttsCurrentIdx = -1;
+}
+
+function ttsStop() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  if (ttsCurrentIdx >= 0) ttsResetItem(ttsCurrentIdx);
+  document.getElementById('ttsNowPlaying').classList.remove('show');
+  document.getElementById('ttsBadge').style.display = 'none';
+  document.querySelectorAll('.tts-heading-btn').forEach(b => {
+    b.classList.remove('playing');
+    b.innerHTML = '<i class="bi bi-play-fill"></i>';
+  });
+  ttsCurrentIdx = -1;
+}
+
+function ttsPlayAll() {
+  ttsPlayItem(0);
+}
+
+function ttsSpeak(sectionId) {
+  const idx = ttsContent.findIndex(c => c.id === sectionId);
+  if (idx < 0) return;
+  // Toggle: jika sedang putar section ini, stop
+  if (ttsCurrentIdx === idx && window.speechSynthesis && window.speechSynthesis.speaking) {
+    ttsStop();
+    return;
+  }
+  if (!ttsPanelOpen) toggleTtsPanel();
+  // Scroll ke item di panel
+  const itemEl = document.getElementById(`tts-list-item-${idx}`);
+  if (itemEl) itemEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  ttsPlayItem(idx);
+}
+
+function updateSpeedLabel() {
+  const v = parseFloat(document.getElementById('ttsSpeed').value).toFixed(1);
+  document.getElementById('ttsSpeedLabel').textContent = v + '×';
+  // Update rate jika sedang memutar
+  if (window.speechSynthesis && window.speechSynthesis.speaking && ttsCurrentIdx >= 0) {
+    const currentIdx = ttsCurrentIdx;
+    ttsStop();
+    setTimeout(() => ttsPlayItem(currentIdx), 100);
+  }
+}
 </script>
 </body>
 </html>
