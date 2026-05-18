@@ -1,63 +1,122 @@
 [
   {
+    "id": 1,
     "judul": "Clean Code",
     "penulis": "Robert C. Martin",
     "kategori": "pemrograman",
-    "cover": "https://covers.openlibrary.org/b/id/8231856-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8231856-L.jpg",
+    "deskripsi": "Panduan praktis menulis kode yang bersih, mudah dibaca, dan mudah dipelihara. Buku wajib bagi setiap programmer profesional.",
+    "tahun": 2008,
+    "tersedia": true
   },
   {
+    "id": 2,
     "judul": "Database System Concepts",
     "penulis": "Abraham Silberschatz",
     "kategori": "database",
-    "cover": "https://covers.openlibrary.org/b/id/240726-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/240726-L.jpg",
+    "deskripsi": "Referensi komprehensif untuk memahami konsep dasar hingga lanjutan sistem database modern.",
+    "tahun": 2019,
+    "tersedia": true
   },
-
   {
+    "id": 3,
     "judul": "Atomic Habits",
     "penulis": "James Clear",
     "kategori": "pengembangan",
-    "cover": "https://covers.openlibrary.org/b/id/10594743-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/10594743-L.jpg",
+    "deskripsi": "Cara mudah dan terbukti untuk membangun kebiasaan baik dan menghilangkan kebiasaan buruk dalam kehidupan sehari-hari.",
+    "tahun": 2018,
+    "tersedia": true
   },
   {
+    "id": 4,
     "judul": "Rich Dad Poor Dad",
     "penulis": "Robert Kiyosaki",
     "kategori": "pengembangan",
-    "cover": "https://covers.openlibrary.org/b/id/8099256-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8099256-L.jpg",
+    "deskripsi": "Pelajaran tentang uang, investasi, dan kebebasan finansial yang tidak diajarkan di sekolah.",
+    "tahun": 1997,
+    "tersedia": false
   },
   {
+    "id": 5,
     "judul": "The Psychology of Money",
     "penulis": "Morgan Housel",
     "kategori": "pengembangan",
-    "cover": "https://covers.openlibrary.org/b/id/10958359-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/10958359-L.jpg",
+    "deskripsi": "Kisah timeless tentang kekayaan, keserakahan, dan kebahagiaan melalui perspektif psikologi.",
+    "tahun": 2020,
+    "tersedia": true
   },
   {
+    "id": 6,
     "judul": "Thinking, Fast and Slow",
     "penulis": "Daniel Kahneman",
     "kategori": "pengembangan",
-    "cover": "https://covers.openlibrary.org/b/id/8231996-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8231996-L.jpg",
+    "deskripsi": "Menjelajahi dua sistem berpikir manusia yang membentuk penilaian dan pengambilan keputusan kita.",
+    "tahun": 2011,
+    "tersedia": true
   },
   {
+    "id": 7,
     "judul": "Deep Work",
     "penulis": "Cal Newport",
     "kategori": "pengembangan",
-    "cover": "https://covers.openlibrary.org/b/id/8168691-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8168691-L.jpg",
+    "deskripsi": "Aturan untuk kesuksesan terfokus di dunia yang terganggu. Strategi produktivitas untuk era digital.",
+    "tahun": 2016,
+    "tersedia": true
   },
   {
+    "id": 8,
     "judul": "The Lean Startup",
     "penulis": "Eric Ries",
     "kategori": "bisnis",
-    "cover": "https://covers.openlibrary.org/b/id/7222246-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+    "deskripsi": "Metode baru untuk mengembangkan bisnis dan produk yang efisien di tengah ketidakpastian tinggi.",
+    "tahun": 2011,
+    "tersedia": true
   },
   {
+    "id": 9,
     "judul": "Start with Why",
     "penulis": "Simon Sinek",
     "kategori": "bisnis",
-    "cover": "https://covers.openlibrary.org/b/id/8226191-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8226191-L.jpg",
+    "deskripsi": "Bagaimana pemimpin besar menginspirasi setiap orang untuk mengambil tindakan bermakna.",
+    "tahun": 2009,
+    "tersedia": false
   },
   {
+    "id": 10,
     "judul": "Zero to One",
     "penulis": "Peter Thiel",
     "kategori": "bisnis",
-    "cover": "https://covers.openlibrary.org/b/id/8370226-L.jpg"
+    "cover": "https://covers.openlibrary.org/b/id/8370226-L.jpg",
+    "deskripsi": "Catatan tentang startup dan cara membangun masa depan. Pemikiran segar tentang inovasi bisnis.",
+    "tahun": 2014,
+    "tersedia": true
+  },
+  {
+    "id": 11,
+    "judul": "Laskar Pelangi",
+    "penulis": "Andrea Hirata",
+    "kategori": "fiksi",
+    "cover": "https://covers.openlibrary.org/b/id/8945451-L.jpg",
+    "deskripsi": "Novel inspiratif tentang perjuangan anak-anak Belitung dalam meraih mimpi di tengah keterbatasan.",
+    "tahun": 2005,
+    "tersedia": true
+  },
+  {
+    "id": 12,
+    "judul": "Bumi Manusia",
+    "penulis": "Pramoedya Ananta Toer",
+    "kategori": "fiksi",
+    "cover": "https://covers.openlibrary.org/b/id/8945450-L.jpg",
+    "deskripsi": "Karya sastra monumental yang mengisahkan kebangkitan nasionalisme Indonesia di era kolonial.",
+    "tahun": 1980,
+    "tersedia": true
   }
 ]
